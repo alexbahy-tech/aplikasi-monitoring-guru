@@ -1,0 +1,1189 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Monitoring Kehadiran Guru - SMK Negeri 1 Maluku Tengah</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap');
+        
+        :root {
+            --primary: #6366f1;
+            --primary-dark: #4f46e5;
+            --secondary: #8b5cf6;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --info: #3b82f6;
+            --bg-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --glass: rgba(255, 255, 255, 0.1);
+            --glass-border: rgba(255, 255, 255, 0.2);
+            --shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            --shadow-lg: 0 25px 80px rgba(0, 0, 0, 0.4);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 25%, #f093fb 50%, #4facfe 75%, #00f2fe 100%);
+            background-size: 400% 400%;
+            animation: gradientFlow 20s ease infinite;
+            min-height: 100vh;
+            color: white;
+            overflow-x: hidden;
+        }
+
+        @keyframes gradientFlow {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Header */
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            animation: fadeInDown 0.8s ease;
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            text-shadow: 2px 4px 20px rgba(0, 0, 0, 0.3);
+            margin-bottom: 10px;
+            letter-spacing: -1px;
+        }
+
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 24px;
+            background: var(--glass);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 50px;
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            margin-bottom: 30px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .back-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateX(-8px);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .header .subtitle {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            font-weight: 300;
+        }
+
+        .clock-display {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 16px 32px;
+            background: var(--glass);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 50px;
+            font-size: 1.3rem;
+            font-weight: 600;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Navigation Tabs */
+        .nav-tabs {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+            justify-content: center;
+            animation: fadeInUp 0.8s ease 0.2s both;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .nav-tab {
+            padding: 14px 28px;
+            background: var(--glass);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 50px;
+            color: white;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .nav-tab:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .nav-tab.active {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            box-shadow: 0 8px 30px rgba(99, 102, 241, 0.4);
+        }
+
+        /* Content Sections */
+        .content-section {
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .content-section.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        /* Glass Card */
+        .glass-card {
+            background: var(--glass);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 24px;
+            padding: 30px;
+            box-shadow: var(--shadow);
+            margin-bottom: 24px;
+        }
+
+        .card-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        /* Login Form */
+        .login-form {
+            max-width: 400px;
+            margin: 0 auto;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 14px 20px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            font-size: 1rem;
+            font-weight: 500;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        .form-input::placeholder {
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        .form-input:focus {
+            background: rgba(255, 255, 255, 0.15);
+            border-color: rgba(255, 255, 255, 0.4);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .btn {
+            padding: 14px 28px;
+            border: none;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            width: 100%;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(99, 102, 241, 0.4);
+        }
+
+        .btn-success {
+            background: linear-gradient(135deg, var(--success), #059669);
+            color: white;
+        }
+
+        .btn-warning {
+            background: linear-gradient(135deg, var(--warning), #d97706);
+            color: white;
+        }
+
+        .btn-danger {
+            background: linear-gradient(135deg, var(--danger), #dc2626);
+            color: white;
+        }
+
+        .btn-info {
+            background: linear-gradient(135deg, var(--info), #2563eb);
+            color: white;
+        }
+
+        .btn-sm {
+            padding: 8px 16px;
+            font-size: 0.875rem;
+        }
+
+        /* Schedule List */
+        .schedule-grid {
+            display: grid;
+            gap: 16px;
+        }
+
+        .schedule-item {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 16px;
+            padding: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .schedule-item:hover {
+            background: rgba(255, 255, 255, 0.15);
+            transform: translateX(5px);
+        }
+
+        .schedule-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+            margin-bottom: 16px;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .schedule-info {
+            flex: 1;
+        }
+
+        .class-badge {
+            display: inline-block;
+            padding: 6px 14px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 0.85rem;
+            margin-bottom: 8px;
+        }
+
+        .schedule-time {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .schedule-subject {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+
+        .schedule-teacher {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            opacity: 0.9;
+            font-size: 0.95rem;
+        }
+
+        .status-buttons {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .status-badge {
+            padding: 8px 16px;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 0.85rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .status-hadir {
+            background: linear-gradient(135deg, var(--success), #059669);
+        }
+
+        .status-sakit {
+            background: linear-gradient(135deg, var(--warning), #d97706);
+        }
+
+        .status-ijin {
+            background: linear-gradient(135deg, var(--info), #2563eb);
+        }
+
+        .status-alpha {
+            background: linear-gradient(135deg, var(--danger), #dc2626);
+        }
+
+        /* Statistics Cards */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .stat-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
+            padding: 24px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .stat-icon {
+            font-size: 3rem;
+            margin-bottom: 12px;
+        }
+
+        .stat-value {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 4px;
+        }
+
+        .stat-label {
+            font-size: 0.95rem;
+            opacity: 0.9;
+            font-weight: 500;
+        }
+
+        .stat-percentage {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-top: 8px;
+        }
+
+        /* Filter Controls */
+        .filter-controls {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 24px;
+            flex-wrap: wrap;
+        }
+
+        .filter-controls select {
+            padding: 12px 20px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            font-size: 0.95rem;
+            font-weight: 500;
+            outline: none;
+            cursor: pointer;
+        }
+
+        .filter-controls select option {
+            background: #4f46e5;
+            color: white;
+        }
+
+        /* Table */
+        .table-container {
+            overflow-x: auto;
+            border-radius: 16px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        th, td {
+            padding: 16px;
+            text-align: left;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        th {
+            background: rgba(255, 255, 255, 0.1);
+            font-weight: 700;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            letter-spacing: 0.5px;
+        }
+
+        tr:hover {
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        /* Loading Spinner */
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top-color: white;
+            animation: spin 1s ease-in-out infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.7);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+        }
+
+        .loading-content {
+            text-align: center;
+        }
+
+        .loading-spinner {
+            width: 60px;
+            height: 60px;
+            border: 5px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top-color: white;
+            animation: spin 1s ease-in-out infinite;
+            margin: 0 auto 20px;
+        }
+
+        /* Alert */
+        .alert {
+            padding: 16px 20px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .alert-success {
+            background: rgba(16, 185, 129, 0.2);
+            border: 1px solid rgba(16, 185, 129, 0.4);
+        }
+
+        .alert-error {
+            background: rgba(239, 68, 68, 0.2);
+            border: 1px solid rgba(239, 68, 68, 0.4);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 1.8rem;
+            }
+
+            .clock-display {
+                font-size: 1rem;
+                padding: 12px 24px;
+            }
+
+            .nav-tabs {
+                gap: 8px;
+            }
+
+            .nav-tab {
+                padding: 10px 20px;
+                font-size: 0.9rem;
+            }
+
+            .glass-card {
+                padding: 20px;
+            }
+
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .stat-card {
+                padding: 16px;
+            }
+
+            .stat-icon {
+                font-size: 2rem;
+            }
+
+            .stat-value {
+                font-size: 1.8rem;
+            }
+
+            .schedule-header {
+                flex-direction: column;
+            }
+
+            .status-buttons {
+                width: 100%;
+            }
+
+            .status-buttons button {
+                flex: 1;
+            }
+
+            table {
+                font-size: 0.85rem;
+            }
+
+            th, td {
+                padding: 12px 8px;
+            }
+        }
+
+        .hidden {
+            display: none !important;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <a href="https://alexbahy-tech.github.io/smartkurikulumsmkn1mt/" class="back-btn">
+                <span>←</span> Kembali ke Smart Kurikulum
+            </a>
+            <h1>📋 Monitoring Kehadiran Guru</h1>
+            <p class="subtitle">SMK Negeri 1 Maluku Tengah</p>
+            <div class="clock-display" id="realtime-clock">
+                <span class="loading"></span> Memuat waktu...
+            </div>
+        </div>
+
+        <!-- Navigation Tabs -->
+        <div class="nav-tabs">
+            <button class="nav-tab active" onclick="switchTab('dashboard')">📊 Dashboard</button>
+            <button class="nav-tab" onclick="switchTab('rekap')">📈 Rekapitulasi</button>
+            <button class="nav-tab" onclick="switchTab('monitoring')" id="tab-monitoring">🔐 Input Kehadiran</button>
+        </div>
+
+        <!-- Dashboard Section -->
+        <div id="section-dashboard" class="content-section active">
+            <div class="glass-card">
+                <div class="card-title">📊 Dashboard Kehadiran</div>
+                
+                <div class="filter-controls">
+                    <select id="filter-period" onchange="updateDashboard()">
+                        <option value="today">Hari Ini</option>
+                        <option value="week">Minggu Ini</option>
+                        <option value="month" selected>Bulan Ini</option>
+                    </select>
+                    <select id="filter-month" onchange="updateDashboard()">
+                        <option value="1">Januari</option>
+                        <option value="2">Februari</option>
+                        <option value="3">Maret</option>
+                        <option value="4">April</option>
+                        <option value="5">Mei</option>
+                        <option value="6">Juni</option>
+                        <option value="7">Juli</option>
+                        <option value="8">Agustus</option>
+                        <option value="9">September</option>
+                        <option value="10">Oktober</option>
+                        <option value="11">November</option>
+                        <option value="12">Desember</option>
+                    </select>
+                </div>
+
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon">✅</div>
+                        <div class="stat-value" id="stat-hadir">0</div>
+                        <div class="stat-label">Hadir</div>
+                        <div class="stat-percentage" id="stat-hadir-pct">0%</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">🤒</div>
+                        <div class="stat-value" id="stat-sakit">0</div>
+                        <div class="stat-label">Sakit</div>
+                        <div class="stat-percentage" id="stat-sakit-pct">0%</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">📄</div>
+                        <div class="stat-value" id="stat-ijin">0</div>
+                        <div class="stat-label">Ijin</div>
+                        <div class="stat-percentage" id="stat-ijin-pct">0%</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">❌</div>
+                        <div class="stat-value" id="stat-alpha">0</div>
+                        <div class="stat-label">Tanpa Keterangan</div>
+                        <div class="stat-percentage" id="stat-alpha-pct">0%</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Rekapitulasi Section -->
+        <div id="section-rekap" class="content-section">
+            <div class="glass-card">
+                <div class="card-title">📈 Rekapitulasi Kehadiran</div>
+                
+                <div class="filter-controls">
+                    <select id="rekap-period" onchange="updateRekap()">
+                        <option value="month">Bulanan</option>
+                        <option value="semester">Semester</option>
+                        <option value="year">Tahun Pelajaran</option>
+                    </select>
+                    <select id="rekap-guru" onchange="updateRekap()">
+                        <option value="all">Semua Guru</option>
+                        <!-- Will be populated by JavaScript -->
+                    </select>
+                </div>
+
+                <div class="table-container">
+                    <table id="rekap-table">
+                        <thead>
+                            <tr>
+                                <th>No</th>
+                                <th>Nama Guru</th>
+                                <th>Hadir</th>
+                                <th>Sakit</th>
+                                <th>Ijin</th>
+                                <th>Alpha</th>
+                                <th>Total</th>
+                                <th>Persentase Hadir</th>
+                            </tr>
+                        </thead>
+                        <tbody id="rekap-tbody">
+                            <!-- Will be populated by JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Monitoring Section (Requires Login) -->
+        <div id="section-monitoring" class="content-section">
+            <!-- Login Form (shown when not logged in) -->
+            <div id="login-section" class="glass-card login-form" style="max-width: 500px; margin: 0 auto;">
+                <div class="card-title">🔐 Login Petugas Monitoring</div>
+                <div style="background: rgba(255, 255, 255, 0.1); padding: 16px; border-radius: 12px; margin-bottom: 20px; border-left: 4px solid var(--info);">
+                    <p style="margin: 0; opacity: 0.9; font-size: 0.95rem;">
+                        ℹ️ Halaman ini khusus untuk <strong>Petugas Monitoring</strong> yang bertugas menginput kehadiran guru.
+                    </p>
+                </div>
+                <div id="login-alert"></div>
+                <form onsubmit="handleLogin(event)">
+                    <div class="form-group">
+                        <label class="form-label">Password Petugas</label>
+                        <input type="password" class="form-input" id="password-input" placeholder="Masukkan password" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">
+                        <span id="login-btn-text">🔓 Login</span>
+                        <span id="login-btn-loading" class="hidden"><span class="loading"></span> Memproses...</span>
+                    </button>
+                </form>
+            </div>
+
+            <!-- Monitoring Form (shown after login) -->
+            <div id="monitoring-section" class="glass-card hidden">
+                <div class="card-title">
+                    📝 Input Kehadiran Hari Ini
+                    <button onclick="handleLogout()" class="btn btn-danger btn-sm" style="margin-left: auto; padding: 8px 16px;">
+                        🚪 Logout
+                    </button>
+                </div>
+                
+                <div id="monitoring-alert"></div>
+                
+                <div id="schedule-today" class="schedule-grid">
+                    <!-- Will be populated by JavaScript -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="database-jadwal-lengkap.js"></script>
+    <script>
+        // Configuration
+        const CONFIG = {
+            PASSWORD: 'SMKBisaHebat',
+            SCRIPT_URL: 'https://script.google.com/macros/s/AKfycbxbozSqeBWhLgTjDDUlvJaHtQGlb9nijywuDEAuk4ogNyIururHF-CgZe5gwSTOdljs/exec' // Akan diganti dengan URL deployment
+        };
+
+        // Daftar Guru (Lengkap & Terurut Alfabetis)
+        const teachersList = [
+            "A. Bahy, S.Pd., M.Pd",
+            "A. Leuwol, S.Pd",
+            "A.W.J. Soplantila, S.Tr.Par",
+            "Abdul Manan Payapo, S.T",
+            "Allcresdo Latumeirissa, S.Pd",
+            "Allen Matinahoruw",
+            "Axl Denis Hallatu, S.Kom",
+            "B.W. Tanamal, S.Pd",
+            "Boki Tuasikal, S.Pd",
+            "Budiarto Tahidi, S.PdI",
+            "Ch. Elias, S.Pd., M.Pd",
+            "D. Simaela, S.Pd",
+            "Dahasian, S.Pd.Gr",
+            "Dani Iswanti, S.Sos",
+            "Daud Ali Pakan, S.Pd",
+            "Diwanti Wally, A.Md",
+            "Djumiaty",
+            "Djumiaty, S.PdI",
+            "E. Tamaela, A.Md",
+            "E.A. Wacanno, S.Pd",
+            "F.L. Pelltimu, S.Th",
+            "FL. Pelletimu, S.Th",
+            "Gloria S. Pattiradjawane, S.Tr.TI",
+            "Gloria Stevana Pattiradjawane, S.Tr.TI",
+            "H. Salampessy, SE",
+            "H.S. Kapressy, S.Pd., M.Pd",
+            "J. Resiloy",
+            "Kalsum Mony, S.Pd",
+            "Latumeirissa Allcresdo, S.Pd",
+            "Latumeirissa Allcresdo",
+            "Lukas M. Wacanno, S.Pd",
+            "M. Kunu, S.Pd",
+            "M. Matinaheruw",
+            "M. Siwabessy, S.Tr.Par",
+            "Mani Jamaludin, S.Kom",
+            "Marwana Dahasian, S.Pd.Gr",
+            "N. Ch. Elias, S.Pd., M.Pd",
+            "Netri Wailaruno, S.Pd",
+            "Nurdin, SST",
+            "O.A. Lawalata, S.Pd",
+            "Papuangan Syamsudin, A.Md",
+            "R. A. Ririhena, SM.Gr",
+            "R. E. Ruhukail, S.Pd., M.Pd",
+            "R. Lewenussa, S.Pd",
+            "R.Y. Ririhena, S.Pd.Kom",
+            "S. Pattiradjawane",
+            "S. Singadji, S.Kom",
+            "Semby Singadji, S.Kom",
+            "Suharja Duhalim, S.Pd",
+            "T.M.A. Kappuw, S.Pd",
+            "T.S. Polnaya, S.Th",
+            "V. Ruhukail, S.Pd",
+            "Wa Mulina, S.Pd",
+            "Yulan Talarima, S.Pd.,Gr"
+        ];
+
+        // State Management
+        let isLoggedIn = false;
+        let attendanceData = [];
+        let currentDate = new Date();
+
+        // Utility Functions
+        function parseTime(timeStr) {
+            const [hours, minutes] = timeStr.split(':').map(Number);
+            return hours * 60 + minutes;
+        }
+
+        function formatDay(dayCode) {
+            const days = {
+                "Sen": "Senin",
+                "Sel": "Selasa",
+                "Rab": "Rabu",
+                "Kam": "Kamis",
+                "Jum": "Jumat",
+                "Sab": "Sabtu",
+                "Minggu": "Minggu"
+            };
+            return days[dayCode] || dayCode;
+        }
+
+        function getDayCode(dayIndex) {
+            const codes = ["Minggu", "Sen", "Sel", "Rab", "Kam", "Jum", "Sab"];
+            return codes[dayIndex];
+        }
+
+        function updateClock() {
+            const now = new Date();
+            const days = ["Minggu", "Sen", "Sel", "Rab", "Kam", "Jum", "Sab"];
+            const currentDay = days[now.getDay()];
+            const timeString = now.getHours().toString().padStart(2, '0') + ":" + 
+                              now.getMinutes().toString().padStart(2, '0') + ":" + 
+                              now.getSeconds().toString().padStart(2, '0');
+            document.getElementById('realtime-clock').innerHTML = 
+                `<span style="font-size: 0.8em; opacity: 0.8;">${formatDay(currentDay)}</span> ${timeString} <span style="font-size: 0.8em; opacity: 0.8;">WIT</span>`;
+        }
+
+        // Tab Management
+        function switchTab(tabName) {
+            // Hanya monitoring yang perlu login
+            if (!isLoggedIn && tabName === 'monitoring') {
+                // Show login form
+                document.getElementById('login-section').classList.remove('hidden');
+                document.getElementById('monitoring-section').classList.add('hidden');
+            }
+
+            // Hide all sections
+            document.querySelectorAll('.content-section').forEach(section => {
+                section.classList.remove('active');
+            });
+
+            // Remove active class from all tabs
+            document.querySelectorAll('.nav-tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+
+            // Show selected section
+            document.getElementById(`section-${tabName}`).classList.add('active');
+            
+            // Add active class to clicked tab
+            event.target.classList.add('active');
+
+            // Load data for specific tabs
+            if (tabName === 'monitoring' && isLoggedIn) {
+                loadTodaySchedule();
+            } else if (tabName === 'dashboard') {
+                updateDashboard();
+            } else if (tabName === 'rekap') {
+                loadTeacherList();
+                updateRekap();
+            }
+        }
+
+        // Login Handler
+        function handleLogin(event) {
+            event.preventDefault();
+            const password = document.getElementById('password-input').value;
+            
+            if (password === CONFIG.PASSWORD) {
+                isLoggedIn = true;
+                
+                // Hide login form, show monitoring form
+                document.getElementById('login-section').classList.add('hidden');
+                document.getElementById('monitoring-section').classList.remove('hidden');
+                
+                showAlert('monitoring', 'success', '✅ Login berhasil! Selamat datang, Petugas Monitoring.');
+                
+                // Load today's schedule
+                loadTodaySchedule();
+                
+                // Clear password input
+                document.getElementById('password-input').value = '';
+            } else {
+                showAlert('login', 'error', '❌ Password salah! Silakan coba lagi.');
+            }
+        }
+
+        // Logout Handler
+        function handleLogout() {
+            isLoggedIn = false;
+            document.getElementById('login-section').classList.remove('hidden');
+            document.getElementById('monitoring-section').classList.add('hidden');
+            document.getElementById('password-input').value = '';
+            
+            showAlert('login', 'success', '✅ Anda telah logout.');
+        }
+
+        // Show Alert
+        function showAlert(section, type, message) {
+            const alertDiv = document.getElementById(`${section}-alert`);
+            alertDiv.innerHTML = `
+                <div class="alert alert-${type === 'error' ? 'error' : 'success'}">
+                    ${message}
+                </div>
+            `;
+            setTimeout(() => {
+                alertDiv.innerHTML = '';
+            }, 5000);
+        }
+
+        // Load Today's Schedule
+        function loadTodaySchedule() {
+            const now = new Date();
+            const dayCode = getDayCode(now.getDay());
+            
+            // Filter schedule for today, exclude breaks
+            const todaySchedule = database.filter(item => 
+                item.hri === dayCode && item.type !== 'break'
+            );
+
+            const scheduleContainer = document.getElementById('schedule-today');
+            
+            if (todaySchedule.length === 0) {
+                scheduleContainer.innerHTML = `
+                    <div style="text-align: center; padding: 40px; opacity: 0.8;">
+                        <div style="font-size: 3rem; margin-bottom: 16px;">📅</div>
+                        <div style="font-size: 1.2rem;">Tidak ada jadwal untuk hari ini</div>
+                    </div>
+                `;
+                return;
+            }
+
+            scheduleContainer.innerHTML = todaySchedule.map((item, index) => {
+                const scheduleId = `${item.kls}-${item.jam}-${item.guru}`.replace(/\s/g, '-');
+                return `
+                    <div class="schedule-item" id="schedule-${index}">
+                        <div class="schedule-header">
+                            <div class="schedule-info">
+                                <div class="class-badge">${item.kls}</div>
+                                <div class="schedule-time">⏰ ${item.jam} WIT</div>
+                                <div class="schedule-subject">📖 ${item.mapel}</div>
+                                <div class="schedule-teacher">👤 ${item.guru}</div>
+                            </div>
+                            <div class="status-buttons">
+                                <button class="btn btn-success btn-sm" onclick="markAttendance('${scheduleId}', '${item.guru}', '${item.kls}', '${item.mapel}', '${item.jam}', 'Hadir')">
+                                    ✅ Hadir
+                                </button>
+                                <button class="btn btn-warning btn-sm" onclick="markAttendance('${scheduleId}', '${item.guru}', '${item.kls}', '${item.mapel}', '${item.jam}', 'Sakit')">
+                                    🤒 Sakit
+                                </button>
+                                <button class="btn btn-info btn-sm" onclick="markAttendance('${scheduleId}', '${item.guru}', '${item.kls}', '${item.mapel}', '${item.jam}', 'Ijin')">
+                                    📄 Ijin
+                                </button>
+                                <button class="btn btn-danger btn-sm" onclick="markAttendance('${scheduleId}', '${item.guru}', '${item.kls}', '${item.mapel}', '${item.jam}', 'Alpha')">
+                                    ❌ Alpha
+                                </button>
+                            </div>
+                        </div>
+                        <div id="status-${scheduleId}" style="margin-top: 12px;"></div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        // Mark Attendance
+        async function markAttendance(scheduleId, guru, kelas, mapel, jam, status) {
+            const statusDiv = document.getElementById(`status-${scheduleId}`);
+            
+            // Show loading
+            statusDiv.innerHTML = `<div class="loading"></div> Menyimpan...`;
+            
+            const attendanceRecord = {
+                tanggal: currentDate.toISOString().split('T')[0],
+                hari: formatDay(getDayCode(currentDate.getDay())),
+                jam: jam,
+                kelas: kelas,
+                guru: guru,
+                mapel: mapel,
+                status: status,
+                timestamp: new Date().toISOString()
+            };
+
+            try {
+                // Send to Google Sheets
+                const response = await fetch(CONFIG.SCRIPT_URL, {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(attendanceRecord)
+                });
+
+                // Show success status
+                const statusClass = status === 'Hadir' ? 'status-hadir' : 
+                                  status === 'Sakit' ? 'status-sakit' : 
+                                  status === 'Ijin' ? 'status-ijin' : 'status-alpha';
+                
+                const statusIcon = status === 'Hadir' ? '✅' : 
+                                 status === 'Sakit' ? '🤒' : 
+                                 status === 'Ijin' ? '📄' : '❌';
+                
+                statusDiv.innerHTML = `
+                    <div class="status-badge ${statusClass}">
+                        ${statusIcon} Status: ${status} - ${new Date().toLocaleTimeString('id-ID')}
+                    </div>
+                `;
+
+                showAlert('monitoring', 'success', `✅ Kehadiran ${guru} berhasil dicatat: ${status}`);
+                
+            } catch (error) {
+                console.error('Error:', error);
+                statusDiv.innerHTML = `
+                    <div class="alert alert-error">
+                        ❌ Gagal menyimpan data. Silakan coba lagi.
+                    </div>
+                `;
+            }
+        }
+
+        // Update Dashboard
+        async function updateDashboard() {
+            const period = document.getElementById('filter-period').value;
+            const month = document.getElementById('filter-month').value;
+            
+            // Set current month as default
+            const now = new Date();
+            document.getElementById('filter-month').value = now.getMonth() + 1;
+            
+            try {
+                // Fetch data from Google Sheets
+                const response = await fetch(`${CONFIG.SCRIPT_URL}?period=${period}&month=${month}`);
+                const data = await response.json();
+                
+                // Calculate statistics
+                const stats = calculateStats(data);
+                
+                // Update stat cards
+                document.getElementById('stat-hadir').textContent = stats.hadir;
+                document.getElementById('stat-sakit').textContent = stats.sakit;
+                document.getElementById('stat-ijin').textContent = stats.ijin;
+                document.getElementById('stat-alpha').textContent = stats.alpha;
+                
+                const total = stats.hadir + stats.sakit + stats.ijin + stats.alpha;
+                document.getElementById('stat-hadir-pct').textContent = 
+                    total > 0 ? `${((stats.hadir / total) * 100).toFixed(1)}%` : '0%';
+                document.getElementById('stat-sakit-pct').textContent = 
+                    total > 0 ? `${((stats.sakit / total) * 100).toFixed(1)}%` : '0%';
+                document.getElementById('stat-ijin-pct').textContent = 
+                    total > 0 ? `${((stats.ijin / total) * 100).toFixed(1)}%` : '0%';
+                document.getElementById('stat-alpha-pct').textContent = 
+                    total > 0 ? `${((stats.alpha / total) * 100).toFixed(1)}%` : '0%';
+                
+            } catch (error) {
+                console.error('Error loading dashboard:', error);
+            }
+        }
+
+        // Calculate Statistics
+        function calculateStats(data) {
+            const stats = {
+                hadir: 0,
+                sakit: 0,
+                ijin: 0,
+                alpha: 0
+            };
+            
+            data.forEach(record => {
+                if (record.status === 'Hadir') stats.hadir++;
+                else if (record.status === 'Sakit') stats.sakit++;
+                else if (record.status === 'Ijin') stats.ijin++;
+                else if (record.status === 'Alpha') stats.alpha++;
+            });
+            
+            return stats;
+        }
+
+        // Load Teacher List
+        function loadTeacherList() {
+            const select = document.getElementById('rekap-guru');
+            
+            select.innerHTML = '<option value="all">Semua Guru</option>' +
+                teachersList.map(teacher => `<option value="${teacher}">${teacher}</option>`).join('');
+        }
+
+        // Update Rekapitulasi
+        async function updateRekap() {
+            const period = document.getElementById('rekap-period').value;
+            const guru = document.getElementById('rekap-guru').value;
+            
+            try {
+                // Fetch data from Google Sheets
+                const response = await fetch(`${CONFIG.SCRIPT_URL}?action=rekap&period=${period}&guru=${guru}`);
+                const data = await response.json();
+                
+                // Generate table
+                const tbody = document.getElementById('rekap-tbody');
+                tbody.innerHTML = data.map((row, index) => `
+                    <tr>
+                        <td>${index + 1}</td>
+                        <td>${row.guru}</td>
+                        <td>${row.hadir}</td>
+                        <td>${row.sakit}</td>
+                        <td>${row.ijin}</td>
+                        <td>${row.alpha}</td>
+                        <td>${row.total}</td>
+                        <td>
+                            <div class="status-badge status-hadir">
+                                ${row.percentage}%
+                            </div>
+                        </td>
+                    </tr>
+                `).join('');
+                
+            } catch (error) {
+                console.error('Error loading rekap:', error);
+                document.getElementById('rekap-tbody').innerHTML = `
+                    <tr>
+                        <td colspan="8" style="text-align: center; padding: 40px;">
+                            <div style="opacity: 0.7;">Data belum tersedia</div>
+                        </td>
+                    </tr>
+                `;
+            }
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            updateClock();
+            setInterval(updateClock, 1000);
+            
+            // Set current month
+            const now = new Date();
+            document.getElementById('filter-month').value = now.getMonth() + 1;
+            
+            // Load dashboard by default
+            updateDashboard();
+            loadTeacherList();
+        });
+    </script>
+</body>
+</html>
