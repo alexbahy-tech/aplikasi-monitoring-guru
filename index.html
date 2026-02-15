@@ -15,18 +15,13 @@
             --warning: #f59e0b;
             --danger: #ef4444;
             --info: #3b82f6;
-            --bg-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --holiday: #e879f9;
             --glass: rgba(255, 255, 255, 0.1);
             --glass-border: rgba(255, 255, 255, 0.2);
             --shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-            --shadow-lg: 0 25px 80px rgba(0, 0, 0, 0.4);
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
@@ -43,13 +38,8 @@
             50% { background-position: 100% 50%; }
         }
 
-        .container {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 20px;
-        }
+        .container { max-width: 1400px; margin: 0 auto; padding: 20px; }
 
-        /* Header */
         .header {
             text-align: center;
             margin-bottom: 40px;
@@ -57,14 +47,8 @@
         }
 
         @keyframes fadeInDown {
-            from {
-                opacity: 0;
-                transform: translateY(-30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            from { opacity: 0; transform: translateY(-30px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         .header h1 {
@@ -89,20 +73,14 @@
             font-weight: 600;
             margin-bottom: 30px;
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
         }
 
         .back-btn:hover {
             background: rgba(255, 255, 255, 0.2);
             transform: translateX(-8px);
-            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
         }
 
-        .header .subtitle {
-            font-size: 1.1rem;
-            opacity: 0.9;
-            font-weight: 300;
-        }
+        .header .subtitle { font-size: 1.1rem; opacity: 0.9; font-weight: 300; }
 
         .clock-display {
             display: inline-block;
@@ -114,10 +92,8 @@
             border-radius: 50px;
             font-size: 1.3rem;
             font-weight: 600;
-            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
         }
 
-        /* Navigation Tabs */
         .nav-tabs {
             display: flex;
             gap: 12px;
@@ -128,14 +104,8 @@
         }
 
         @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         .nav-tab {
@@ -148,13 +118,11 @@
             font-weight: 600;
             cursor: pointer;
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
         }
 
         .nav-tab:hover {
             background: rgba(255, 255, 255, 0.2);
             transform: translateY(-2px);
-            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
         }
 
         .nav-tab.active {
@@ -162,22 +130,11 @@
             box-shadow: 0 8px 30px rgba(99, 102, 241, 0.4);
         }
 
-        /* Content Sections */
-        .content-section {
-            display: none;
-            animation: fadeIn 0.5s ease;
-        }
+        .content-section { display: none; animation: fadeIn 0.5s ease; }
+        .content-section.active { display: block; }
 
-        .content-section.active {
-            display: block;
-        }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-
-        /* Glass Card */
         .glass-card {
             background: var(--glass);
             backdrop-filter: blur(20px);
@@ -198,22 +155,8 @@
             flex-wrap: wrap;
         }
 
-        /* Login Form */
-        .login-form {
-            max-width: 400px;
-            margin: 0 auto;
-        }
-
-        .form-group {
-            margin-bottom: 20px;
-        }
-
-        .form-label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: 600;
-            font-size: 0.95rem;
-        }
+        .form-group { margin-bottom: 20px; }
+        .form-label { display: block; margin-bottom: 8px; font-weight: 600; font-size: 0.95rem; }
 
         .form-input {
             width: 100%;
@@ -228,14 +171,16 @@
             transition: all 0.3s ease;
         }
 
-        .form-input::placeholder {
-            color: rgba(255, 255, 255, 0.5);
-        }
-
+        .form-input::placeholder { color: rgba(255, 255, 255, 0.5); }
         .form-input:focus {
             background: rgba(255, 255, 255, 0.15);
             border-color: rgba(255, 255, 255, 0.4);
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Fix date input agar teks terlihat putih */
+        input[type="date"]::-webkit-calendar-picker-indicator {
+            filter: invert(1);
+            cursor: pointer;
         }
 
         .btn {
@@ -249,47 +194,21 @@
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
         }
 
-        .btn-primary {
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            color: white;
-            width: 100%;
-        }
+        .btn-primary { background: linear-gradient(135deg, var(--primary), var(--secondary)); color: white; width: 100%; }
+        .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(99, 102, 241, 0.4); }
+        .btn-success { background: linear-gradient(135deg, var(--success), #059669); color: white; }
+        .btn-warning { background: linear-gradient(135deg, var(--warning), #d97706); color: white; }
+        .btn-danger { background: linear-gradient(135deg, var(--danger), #dc2626); color: white; }
+        .btn-info { background: linear-gradient(135deg, var(--info), #2563eb); color: white; }
+        .btn-holiday { background: linear-gradient(135deg, #e879f9, #a855f7); color: white; }
+        .btn-holiday:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(168, 85, 247, 0.5); }
+        .btn-sm { padding: 8px 16px; font-size: 0.875rem; }
+        .btn-lg { padding: 18px 36px; font-size: 1.1rem; }
+        .btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none !important; }
+        .btn-ghost { background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(255, 255, 255, 0.3); color: white; }
+        .btn-ghost:hover { background: rgba(255, 255, 255, 0.2); }
 
-        .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(99, 102, 241, 0.4);
-        }
-
-        .btn-success {
-            background: linear-gradient(135deg, var(--success), #059669);
-            color: white;
-        }
-
-        .btn-warning {
-            background: linear-gradient(135deg, var(--warning), #d97706);
-            color: white;
-        }
-
-        .btn-danger {
-            background: linear-gradient(135deg, var(--danger), #dc2626);
-            color: white;
-        }
-
-        .btn-info {
-            background: linear-gradient(135deg, var(--info), #2563eb);
-            color: white;
-        }
-
-        .btn-sm {
-            padding: 8px 16px;
-            font-size: 0.875rem;
-        }
-
-        /* Schedule List */
-        .schedule-grid {
-            display: grid;
-            gap: 16px;
-        }
+        .schedule-grid { display: grid; gap: 16px; }
 
         .schedule-item {
             background: rgba(255, 255, 255, 0.1);
@@ -299,9 +218,10 @@
             transition: all 0.3s ease;
         }
 
-        .schedule-item:hover {
-            background: rgba(255, 255, 255, 0.15);
-            transform: translateX(5px);
+        .schedule-item:hover { background: rgba(255, 255, 255, 0.15); transform: translateX(5px); }
+        .schedule-item.holiday-marked {
+            background: rgba(168, 85, 247, 0.15);
+            border-color: rgba(168, 85, 247, 0.4);
         }
 
         .schedule-header {
@@ -313,9 +233,7 @@
             gap: 12px;
         }
 
-        .schedule-info {
-            flex: 1;
-        }
+        .schedule-info { flex: 1; }
 
         .class-badge {
             display: inline-block;
@@ -327,31 +245,10 @@
             margin-bottom: 8px;
         }
 
-        .schedule-time {
-            font-size: 1.1rem;
-            font-weight: 600;
-            margin-bottom: 4px;
-        }
-
-        .schedule-subject {
-            font-size: 1.2rem;
-            font-weight: 700;
-            margin-bottom: 4px;
-        }
-
-        .schedule-teacher {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            opacity: 0.9;
-            font-size: 0.95rem;
-        }
-
-        .status-buttons {
-            display: flex;
-            gap: 8px;
-            flex-wrap: wrap;
-        }
+        .schedule-time { font-size: 1.1rem; font-weight: 600; margin-bottom: 4px; }
+        .schedule-subject { font-size: 1.2rem; font-weight: 700; margin-bottom: 4px; }
+        .schedule-teacher { display: flex; align-items: center; gap: 6px; opacity: 0.9; font-size: 0.95rem; }
+        .status-buttons { display: flex; gap: 8px; flex-wrap: wrap; }
 
         .status-badge {
             padding: 8px 16px;
@@ -363,26 +260,15 @@
             gap: 6px;
         }
 
-        .status-hadir {
-            background: linear-gradient(135deg, var(--success), #059669);
-        }
+        .status-hadir { background: linear-gradient(135deg, var(--success), #059669); }
+        .status-sakit { background: linear-gradient(135deg, var(--warning), #d97706); }
+        .status-ijin { background: linear-gradient(135deg, var(--info), #2563eb); }
+        .status-alpha { background: linear-gradient(135deg, var(--danger), #dc2626); }
+        .status-libur { background: linear-gradient(135deg, #e879f9, #a855f7); }
 
-        .status-sakit {
-            background: linear-gradient(135deg, var(--warning), #d97706);
-        }
-
-        .status-ijin {
-            background: linear-gradient(135deg, var(--info), #2563eb);
-        }
-
-        .status-alpha {
-            background: linear-gradient(135deg, var(--danger), #dc2626);
-        }
-
-        /* Statistics Cards */
         .stats-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
             gap: 20px;
             margin-bottom: 30px;
         }
@@ -397,41 +283,13 @@
             transition: all 0.3s ease;
         }
 
-        .stat-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
-        }
+        .stat-card:hover { transform: translateY(-5px); box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3); }
+        .stat-icon { font-size: 3rem; margin-bottom: 12px; }
+        .stat-value { font-size: 2.5rem; font-weight: 800; margin-bottom: 4px; }
+        .stat-label { font-size: 0.95rem; opacity: 0.9; font-weight: 500; }
+        .stat-percentage { font-size: 1.1rem; font-weight: 600; margin-top: 8px; }
 
-        .stat-icon {
-            font-size: 3rem;
-            margin-bottom: 12px;
-        }
-
-        .stat-value {
-            font-size: 2.5rem;
-            font-weight: 800;
-            margin-bottom: 4px;
-        }
-
-        .stat-label {
-            font-size: 0.95rem;
-            opacity: 0.9;
-            font-weight: 500;
-        }
-
-        .stat-percentage {
-            font-size: 1.1rem;
-            font-weight: 600;
-            margin-top: 8px;
-        }
-
-        /* Filter Controls */
-        .filter-controls {
-            display: flex;
-            gap: 12px;
-            margin-bottom: 24px;
-            flex-wrap: wrap;
-        }
+        .filter-controls { display: flex; gap: 12px; margin-bottom: 24px; flex-wrap: wrap; }
 
         .filter-controls select {
             padding: 12px 20px;
@@ -445,29 +303,12 @@
             cursor: pointer;
         }
 
-        .filter-controls select option {
-            background: #4f46e5;
-            color: white;
-        }
+        .filter-controls select option { background: #4f46e5; color: white; }
 
-        /* Table */
-        .table-container {
-            overflow-x: auto;
-            border-radius: 16px;
-        }
+        .table-container { overflow-x: auto; border-radius: 16px; }
 
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            background: rgba(255, 255, 255, 0.05);
-        }
-
-        th, td {
-            padding: 16px;
-            text-align: left;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
+        table { width: 100%; border-collapse: collapse; background: rgba(255, 255, 255, 0.05); }
+        th, td { padding: 16px; text-align: left; border-bottom: 1px solid rgba(255, 255, 255, 0.1); }
         th {
             background: rgba(255, 255, 255, 0.1);
             font-weight: 700;
@@ -475,12 +316,140 @@
             font-size: 0.85rem;
             letter-spacing: 0.5px;
         }
+        tr:hover { background: rgba(255, 255, 255, 0.05); }
 
-        tr:hover {
-            background: rgba(255, 255, 255, 0.05);
+        /* Holiday Panel */
+        .holiday-panel {
+            background: linear-gradient(135deg, rgba(168, 85, 247, 0.2), rgba(232, 121, 249, 0.15));
+            border: 2px solid rgba(168, 85, 247, 0.4);
+            border-radius: 20px;
+            padding: 28px;
+            margin-bottom: 28px;
+            position: relative;
+            overflow: hidden;
         }
 
-        /* Loading Spinner */
+        .holiday-panel::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -30%;
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(232, 121, 249, 0.15) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .holiday-panel .card-title { color: #f0abfc; }
+
+        .holiday-form-row {
+            display: flex;
+            gap: 16px;
+            align-items: end;
+            flex-wrap: wrap;
+            margin-bottom: 16px;
+        }
+
+        .holiday-form-row .form-group { flex: 1; min-width: 200px; margin-bottom: 0; }
+
+        .holiday-info-box {
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 12px;
+            padding: 16px;
+            margin-top: 16px;
+            font-size: 0.9rem;
+            line-height: 1.6;
+            opacity: 0.9;
+        }
+
+        .holiday-badge-large {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 24px;
+            background: linear-gradient(135deg, #e879f9, #a855f7);
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 1rem;
+            box-shadow: 0 4px 20px rgba(168, 85, 247, 0.4);
+            animation: pulseGlow 2s ease-in-out infinite;
+        }
+
+        @keyframes pulseGlow {
+            0%, 100% { box-shadow: 0 4px 20px rgba(168, 85, 247, 0.4); }
+            50% { box-shadow: 0 4px 30px rgba(168, 85, 247, 0.7); }
+        }
+
+        .holiday-log { margin-top: 20px; }
+
+        .holiday-log-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 16px;
+            background: rgba(255, 255, 255, 0.06);
+            border-radius: 10px;
+            margin-bottom: 8px;
+            font-size: 0.9rem;
+        }
+
+        .holiday-log-item .log-time { opacity: 0.6; font-size: 0.8rem; margin-left: auto; }
+
+        /* Modal */
+        .modal-overlay {
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0, 0, 0, 0.75);
+            backdrop-filter: blur(8px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10000;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .modal-content {
+            background: linear-gradient(135deg, #4f46e5, #7c3aed);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 24px;
+            padding: 36px;
+            max-width: 520px;
+            width: 90%;
+            box-shadow: 0 25px 80px rgba(0, 0, 0, 0.5);
+            animation: modalSlideIn 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        @keyframes modalSlideIn {
+            from { opacity: 0; transform: translateY(30px) scale(0.95); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        .modal-title { font-size: 1.4rem; font-weight: 700; margin-bottom: 16px; display: flex; align-items: center; gap: 10px; }
+        .modal-body { font-size: 1rem; line-height: 1.6; opacity: 0.95; margin-bottom: 24px; }
+        .modal-body strong { color: #f0abfc; }
+        .modal-actions { display: flex; gap: 12px; justify-content: flex-end; }
+        .modal-actions .btn { min-width: 120px; text-align: center; }
+
+        .progress-bar-container {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50px;
+            height: 12px;
+            overflow: hidden;
+            margin: 16px 0;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, #e879f9, #a855f7);
+            border-radius: 50px;
+            transition: width 0.3s ease;
+            width: 0%;
+        }
+
+        .progress-text { text-align: center; font-size: 0.9rem; opacity: 0.8; margin-top: 8px; }
+
+        /* Loading */
         .loading {
             display: inline-block;
             width: 20px;
@@ -491,36 +460,7 @@
             animation: spin 1s ease-in-out infinite;
         }
 
-        @keyframes spin {
-            to { transform: rotate(360deg); }
-        }
-
-        .loading-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0, 0, 0, 0.7);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 9999;
-        }
-
-        .loading-content {
-            text-align: center;
-        }
-
-        .loading-spinner {
-            width: 60px;
-            height: 60px;
-            border: 5px solid rgba(255, 255, 255, 0.3);
-            border-radius: 50%;
-            border-top-color: white;
-            animation: spin 1s ease-in-out infinite;
-            margin: 0 auto 20px;
-        }
+        @keyframes spin { to { transform: rotate(360deg); } }
 
         /* Alert */
         .alert {
@@ -533,80 +473,32 @@
             gap: 12px;
         }
 
-        .alert-success {
-            background: rgba(16, 185, 129, 0.2);
-            border: 1px solid rgba(16, 185, 129, 0.4);
-        }
-
-        .alert-error {
-            background: rgba(239, 68, 68, 0.2);
-            border: 1px solid rgba(239, 68, 68, 0.4);
-        }
+        .alert-success { background: rgba(16, 185, 129, 0.2); border: 1px solid rgba(16, 185, 129, 0.4); }
+        .alert-error { background: rgba(239, 68, 68, 0.2); border: 1px solid rgba(239, 68, 68, 0.4); }
+        .alert-holiday { background: rgba(168, 85, 247, 0.2); border: 1px solid rgba(168, 85, 247, 0.4); }
 
         /* Responsive */
         @media (max-width: 768px) {
-            .header h1 {
-                font-size: 1.8rem;
-            }
-
-            .clock-display {
-                font-size: 1rem;
-                padding: 12px 24px;
-            }
-
-            .nav-tabs {
-                gap: 8px;
-            }
-
-            .nav-tab {
-                padding: 10px 20px;
-                font-size: 0.9rem;
-            }
-
-            .glass-card {
-                padding: 20px;
-            }
-
-            .stats-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-
-            .stat-card {
-                padding: 16px;
-            }
-
-            .stat-icon {
-                font-size: 2rem;
-            }
-
-            .stat-value {
-                font-size: 1.8rem;
-            }
-
-            .schedule-header {
-                flex-direction: column;
-            }
-
-            .status-buttons {
-                width: 100%;
-            }
-
-            .status-buttons button {
-                flex: 1;
-            }
-
-            table {
-                font-size: 0.85rem;
-            }
-
-            th, td {
-                padding: 12px 8px;
-            }
+            .header h1 { font-size: 1.8rem; }
+            .clock-display { font-size: 1rem; padding: 12px 24px; }
+            .nav-tab { padding: 10px 20px; font-size: 0.9rem; }
+            .glass-card { padding: 20px; }
+            .stats-grid { grid-template-columns: repeat(2, 1fr); }
+            .stat-card { padding: 16px; }
+            .stat-icon { font-size: 2rem; }
+            .stat-value { font-size: 1.8rem; }
+            .schedule-header { flex-direction: column; }
+            .status-buttons { width: 100%; }
+            .status-buttons button { flex: 1; }
+            table { font-size: 0.85rem; }
+            th, td { padding: 12px 8px; }
+            .holiday-form-row { flex-direction: column; }
+            .modal-content { padding: 24px; }
+            .modal-actions { flex-direction: column; }
+            .modal-actions .btn { width: 100%; }
         }
 
-        .hidden {
-            display: none !important;
-        }
+        .hidden { display: none !important; }
     </style>
 </head>
 <body>
@@ -625,12 +517,12 @@
 
         <!-- Navigation Tabs -->
         <div class="nav-tabs">
-            <button class="nav-tab active" onclick="switchTab('dashboard')">📊 Dashboard</button>
-            <button class="nav-tab" onclick="switchTab('rekap')">📈 Rekapitulasi</button>
-            <button class="nav-tab" onclick="switchTab('monitoring')" id="tab-monitoring">🔐 Input Kehadiran</button>
+            <button class="nav-tab active" onclick="switchTab('dashboard', this)">📊 Dashboard</button>
+            <button class="nav-tab" onclick="switchTab('rekap', this)">📈 Rekapitulasi</button>
+            <button class="nav-tab" onclick="switchTab('monitoring', this)" id="tab-monitoring">🔐 Input Kehadiran</button>
         </div>
 
-        <!-- Dashboard Section -->
+        <!-- ==================== DASHBOARD ==================== -->
         <div id="section-dashboard" class="content-section active">
             <div class="glass-card">
                 <div class="card-title">📊 Dashboard Kehadiran</div>
@@ -657,7 +549,11 @@
                     </select>
                 </div>
 
-                <div class="stats-grid">
+                <div id="dashboard-loading" style="text-align:center; padding:20px;" class="hidden">
+                    <span class="loading"></span> Memuat data dari server...
+                </div>
+
+                <div class="stats-grid" id="stats-grid">
                     <div class="stat-card">
                         <div class="stat-icon">✅</div>
                         <div class="stat-value" id="stat-hadir">0</div>
@@ -682,11 +578,23 @@
                         <div class="stat-label">Tanpa Keterangan</div>
                         <div class="stat-percentage" id="stat-alpha-pct">0%</div>
                     </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">🏖️</div>
+                        <div class="stat-value" id="stat-libur">0</div>
+                        <div class="stat-label">Libur</div>
+                        <div class="stat-percentage" id="stat-libur-pct">0%</div>
+                    </div>
+                </div>
+
+                <div id="dashboard-error" class="hidden">
+                    <div class="alert alert-error">
+                        ⚠️ Gagal memuat data dari server. Menampilkan data lokal (cache).
+                    </div>
                 </div>
             </div>
         </div>
 
-        <!-- Rekapitulasi Section -->
+        <!-- ==================== REKAPITULASI ==================== -->
         <div id="section-rekap" class="content-section">
             <div class="glass-card">
                 <div class="card-title">📈 Rekapitulasi Kehadiran</div>
@@ -699,8 +607,11 @@
                     </select>
                     <select id="rekap-guru" onchange="updateRekap()">
                         <option value="all">Semua Guru</option>
-                        <!-- Will be populated by JavaScript -->
                     </select>
+                </div>
+
+                <div id="rekap-loading" style="text-align:center; padding:20px;" class="hidden">
+                    <span class="loading"></span> Memuat data...
                 </div>
 
                 <div class="table-container">
@@ -713,22 +624,22 @@
                                 <th>Sakit</th>
                                 <th>Ijin</th>
                                 <th>Alpha</th>
+                                <th>Libur</th>
                                 <th>Total</th>
-                                <th>Persentase Hadir</th>
+                                <th>% Hadir</th>
                             </tr>
                         </thead>
                         <tbody id="rekap-tbody">
-                            <!-- Will be populated by JavaScript -->
                         </tbody>
                     </table>
                 </div>
             </div>
         </div>
 
-        <!-- Monitoring Section (Requires Login) -->
+        <!-- ==================== MONITORING ==================== -->
         <div id="section-monitoring" class="content-section">
-            <!-- Login Form (shown when not logged in) -->
-            <div id="login-section" class="glass-card login-form" style="max-width: 500px; margin: 0 auto;">
+            <!-- Login Form -->
+            <div id="login-section" class="glass-card" style="max-width: 500px; margin: 0 auto;">
                 <div class="card-title">🔐 Login Petugas Monitoring</div>
                 <div style="background: rgba(255, 255, 255, 0.1); padding: 16px; border-radius: 12px; margin-bottom: 20px; border-left: 4px solid var(--info);">
                     <p style="margin: 0; opacity: 0.9; font-size: 0.95rem;">
@@ -741,165 +652,288 @@
                         <label class="form-label">Password Petugas</label>
                         <input type="password" class="form-input" id="password-input" placeholder="Masukkan password" required>
                     </div>
-                    <button type="submit" class="btn btn-primary">
-                        <span id="login-btn-text">🔓 Login</span>
-                        <span id="login-btn-loading" class="hidden"><span class="loading"></span> Memproses...</span>
-                    </button>
+                    <button type="submit" class="btn btn-primary">🔓 Login</button>
                 </form>
             </div>
 
-            <!-- Monitoring Form (shown after login) -->
-            <div id="monitoring-section" class="glass-card hidden">
-                <div class="card-title">
-                    📝 Input Kehadiran Hari Ini
-                    <button onclick="handleLogout()" class="btn btn-danger btn-sm" style="margin-left: auto; padding: 8px 16px;">
-                        🚪 Logout
-                    </button>
+            <!-- Monitoring Content (after login) -->
+            <div id="monitoring-section" class="hidden">
+
+                <!-- HOLIDAY PANEL -->
+                <div class="holiday-panel" id="holiday-panel">
+                    <div class="card-title">🏖️ Tandai Hari Libur</div>
+                    <p style="opacity: 0.85; margin-bottom: 20px; line-height: 1.6;">
+                        Jika hari ini atau tanggal tertentu adalah hari libur, tandai di sini.
+                        <strong>Semua jadwal pelajaran pada tanggal tersebut akan otomatis diberi status "Libur"</strong> — tidak perlu mengabsensi guru satu per satu.
+                    </p>
+
+                    <div class="holiday-form-row">
+                        <div class="form-group">
+                            <label class="form-label">📅 Tanggal Libur</label>
+                            <input type="date" class="form-input" id="holiday-date">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">📝 Keterangan Libur</label>
+                            <input type="text" class="form-input" id="holiday-reason" placeholder="Contoh: Hari Raya Idul Fitri, HUT RI, dll">
+                        </div>
+                        <div class="form-group" style="flex: 0 0 auto;">
+                            <button class="btn btn-holiday btn-lg" onclick="confirmHoliday()" id="btn-holiday">
+                                🏖️ Tandai Libur
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="holiday-info-box">
+                        💡 <strong>Cara kerja:</strong> Sistem akan mengirim status "Libur" + keterangan untuk <em>setiap jadwal pelajaran</em> pada hari yang dipilih ke Google Sheets secara otomatis. Data ini juga akan tampil di Dashboard dan Rekapitulasi.
+                    </div>
+
+                    <div id="holiday-log" class="holiday-log"></div>
                 </div>
-                
-                <div id="monitoring-alert"></div>
-                
-                <div id="schedule-today" class="schedule-grid">
-                    <!-- Will be populated by JavaScript -->
+
+                <!-- HOLIDAY BANNER (shown when today is holiday) -->
+                <div id="holiday-banner" class="hidden" style="margin-bottom: 24px;">
+                    <div class="alert alert-holiday" style="font-size: 1.1rem; justify-content: center;">
+                        <span class="holiday-badge-large">🏖️ Hari Ini Libur</span>
+                        <span id="holiday-banner-reason" style="margin-left: 12px;"></span>
+                    </div>
                 </div>
+
+                <!-- Main Attendance Input -->
+                <div class="glass-card">
+                    <div class="card-title">
+                        📝 Input Kehadiran Hari Ini
+                        <button onclick="handleLogout()" class="btn btn-danger btn-sm" style="margin-left: auto; padding: 8px 16px;">
+                            🚪 Logout
+                        </button>
+                    </div>
+                    
+                    <div id="monitoring-alert"></div>
+                    
+                    <div id="schedule-today" class="schedule-grid"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Confirmation Modal -->
+    <div id="holiday-modal" class="modal-overlay hidden">
+        <div class="modal-content">
+            <div class="modal-title">🏖️ Konfirmasi Hari Libur</div>
+            <div class="modal-body" id="modal-body-text"></div>
+            <div id="modal-progress" class="hidden">
+                <div class="progress-bar-container">
+                    <div class="progress-bar" id="progress-bar"></div>
+                </div>
+                <div class="progress-text" id="progress-text">Memproses...</div>
+            </div>
+            <div class="modal-actions" id="modal-actions">
+                <button class="btn btn-ghost" onclick="closeHolidayModal()">Batal</button>
+                <button class="btn btn-holiday" id="btn-confirm-holiday" onclick="executeHoliday()">✅ Ya, Tandai Libur</button>
             </div>
         </div>
     </div>
 
     <script src="database-jadwal-lengkap.js"></script>
     <script>
-        // Configuration
+        // ============================================================
+        // CONFIGURATION
+        // ============================================================
         const CONFIG = {
             PASSWORD: 'SMKBisaHebat',
-            SCRIPT_URL: 'https://script.google.com/macros/s/AKfycbxbozSqeBWhLgTjDDUlvJaHtQGlb9nijywuDEAuk4ogNyIururHF-CgZe5gwSTOdljs/exec' // Akan diganti dengan URL deployment
+            SCRIPT_URL: 'https://script.google.com/macros/s/AKfycbz0IL_DekD9udEpxDeGpx18jmpzpH2vge8S8Bn_Pv7WVRFkqk_V_LfPTTky6edylyXR/exec'
         };
 
-        // Daftar Guru (Lengkap & Terurut Alfabetis)
+        // ============================================================
+        // LOCAL STORAGE KEYS (untuk cache & data lokal)
+        // ============================================================
+        const STORAGE_KEYS = {
+            ATTENDANCE: 'smk_attendance_data',
+            HOLIDAYS: 'smk_holidays'
+        };
+
+        // ============================================================
+        // DAFTAR GURU
+        // ============================================================
         const teachersList = [
-            "A. Bahy, S.Pd., M.Pd",
-            "A. Leuwol, S.Pd",
-            "A.W.J. Soplantila, S.Tr.Par",
-            "Abdul Manan Payapo, S.T",
-            "Allcresdo Latumeirissa, S.Pd",
-            "Allen Matinahoruw",
-            "Axl Denis Hallatu, S.Kom",
-            "B.W. Tanamal, S.Pd",
-            "Boki Tuasikal, S.Pd",
-            "Budiarto Tahidi, S.PdI",
-            "Ch. Elias, S.Pd., M.Pd",
-            "D. Simaela, S.Pd",
-            "Dahasian, S.Pd.Gr",
-            "Dani Iswanti, S.Sos",
-            "Daud Ali Pakan, S.Pd",
-            "Diwanti Wally, A.Md",
-            "Djumiaty",
-            "Djumiaty, S.PdI",
-            "E. Tamaela, A.Md",
-            "E.A. Wacanno, S.Pd",
-            "F.L. Pelltimu, S.Th",
-            "FL. Pelletimu, S.Th",
-            "Gloria S. Pattiradjawane, S.Tr.TI",
-            "Gloria Stevana Pattiradjawane, S.Tr.TI",
-            "H. Salampessy, SE",
-            "H.S. Kapressy, S.Pd., M.Pd",
-            "J. Resiloy",
-            "Kalsum Mony, S.Pd",
-            "Latumeirissa Allcresdo, S.Pd",
-            "Latumeirissa Allcresdo",
-            "Lukas M. Wacanno, S.Pd",
-            "M. Kunu, S.Pd",
-            "M. Matinaheruw",
-            "M. Siwabessy, S.Tr.Par",
-            "Mani Jamaludin, S.Kom",
-            "Marwana Dahasian, S.Pd.Gr",
-            "N. Ch. Elias, S.Pd., M.Pd",
-            "Netri Wailaruno, S.Pd",
-            "Nurdin, SST",
-            "O.A. Lawalata, S.Pd",
-            "Papuangan Syamsudin, A.Md",
-            "R. A. Ririhena, SM.Gr",
-            "R. E. Ruhukail, S.Pd., M.Pd",
-            "R. Lewenussa, S.Pd",
-            "R.Y. Ririhena, S.Pd.Kom",
-            "S. Pattiradjawane",
-            "S. Singadji, S.Kom",
-            "Semby Singadji, S.Kom",
-            "Suharja Duhalim, S.Pd",
-            "T.M.A. Kappuw, S.Pd",
-            "T.S. Polnaya, S.Th",
-            "V. Ruhukail, S.Pd",
-            "Wa Mulina, S.Pd",
-            "Yulan Talarima, S.Pd.,Gr"
+            "A. Bahy, S.Pd., M.Pd","A. Leuwol, S.Pd","A.W.J. Soplantila, S.Tr.Par",
+            "Abdul Manan Payapo, S.T","Allcresdo Latumeirissa, S.Pd","Allen Matinahoruw",
+            "Axl Denis Hallatu, S.Kom","B.W. Tanamal, S.Pd","Boki Tuasikal, S.Pd",
+            "Budiarto Tahidi, S.PdI","Ch. Elias, S.Pd., M.Pd","D. Simaela, S.Pd",
+            "Dahasian, S.Pd.Gr","Dani Iswanti, S.Sos","Daud Ali Pakan, S.Pd",
+            "Diwanti Wally, A.Md","Djumiaty","Djumiaty, S.PdI",
+            "E. Tamaela, A.Md","E.A. Wacanno, S.Pd","F.L. Pelltimu, S.Th",
+            "FL. Pelletimu, S.Th","Gloria S. Pattiradjawane, S.Tr.TI",
+            "Gloria Stevana Pattiradjawane, S.Tr.TI","H. Salampessy, SE",
+            "H.S. Kapressy, S.Pd., M.Pd","J. Resiloy","Kalsum Mony, S.Pd",
+            "Latumeirissa Allcresdo, S.Pd","Latumeirissa Allcresdo",
+            "Lukas M. Wacanno, S.Pd","M. Kunu, S.Pd","M. Matinaheruw",
+            "M. Siwabessy, S.Tr.Par","Mani Jamaludin, S.Kom","Marwana Dahasian, S.Pd.Gr",
+            "N. Ch. Elias, S.Pd., M.Pd","Netri Wailaruno, S.Pd","Nurdin, SST",
+            "O.A. Lawalata, S.Pd","Papuangan Syamsudin, A.Md","R. A. Ririhena, SM.Gr",
+            "R. E. Ruhukail, S.Pd., M.Pd","R. Lewenussa, S.Pd","R.Y. Ririhena, S.Pd.Kom",
+            "S. Pattiradjawane","S. Singadji, S.Kom","Semby Singadji, S.Kom",
+            "Suharja Duhalim, S.Pd","T.M.A. Kappuw, S.Pd","T.S. Polnaya, S.Th",
+            "V. Ruhukail, S.Pd","Wa Mulina, S.Pd","Yulan Talarima, S.Pd.,Gr"
         ];
 
-        // State Management
+        // ============================================================
+        // STATE
+        // ============================================================
         let isLoggedIn = false;
-        let attendanceData = [];
         let currentDate = new Date();
+        let holidayPending = null;
 
-        // Utility Functions
-        function parseTime(timeStr) {
-            const [hours, minutes] = timeStr.split(':').map(Number);
-            return hours * 60 + minutes;
+        // ============================================================
+        // LOCAL STORAGE HELPERS
+        // ============================================================
+        function getLocalData(key) {
+            try {
+                const raw = localStorage.getItem(key);
+                return raw ? JSON.parse(raw) : [];
+            } catch(e) {
+                return [];
+            }
         }
 
+        function saveLocalData(key, data) {
+            try {
+                localStorage.setItem(key, JSON.stringify(data));
+            } catch(e) {
+                console.warn('LocalStorage save failed:', e);
+            }
+        }
+
+        function addLocalAttendance(record) {
+            const data = getLocalData(STORAGE_KEYS.ATTENDANCE);
+            data.push(record);
+            saveLocalData(STORAGE_KEYS.ATTENDANCE, data);
+        }
+
+        function getLocalHolidays() {
+            return getLocalData(STORAGE_KEYS.HOLIDAYS);
+        }
+
+        function addLocalHoliday(dateStr, reason, count) {
+            const holidays = getLocalHolidays();
+            holidays.push({ date: dateStr, reason: reason, count: count, timestamp: new Date().toISOString() });
+            saveLocalData(STORAGE_KEYS.HOLIDAYS, holidays);
+        }
+
+        function isDateLocalHoliday(dateStr) {
+            const holidays = getLocalHolidays();
+            return holidays.find(h => h.date === dateStr);
+        }
+
+        // ============================================================
+        // UTILITY FUNCTIONS
+        // ============================================================
         function formatDay(dayCode) {
-            const days = {
-                "Sen": "Senin",
-                "Sel": "Selasa",
-                "Rab": "Rabu",
-                "Kam": "Kamis",
-                "Jum": "Jumat",
-                "Sab": "Sabtu",
-                "Minggu": "Minggu"
-            };
+            const days = { "Sen":"Senin","Sel":"Selasa","Rab":"Rabu","Kam":"Kamis","Jum":"Jumat","Sab":"Sabtu","Minggu":"Minggu" };
             return days[dayCode] || dayCode;
         }
 
         function getDayCode(dayIndex) {
-            const codes = ["Minggu", "Sen", "Sel", "Rab", "Kam", "Jum", "Sab"];
-            return codes[dayIndex];
+            return ["Minggu","Sen","Sel","Rab","Kam","Jum","Sab"][dayIndex];
+        }
+
+        function formatDateIndonesia(dateStr) {
+            const d = new Date(dateStr + 'T00:00:00');
+            const months = ['Januari','Februari','Maret','April','Mei','Juni','Juli','Agustus','September','Oktober','November','Desember'];
+            const days = ['Minggu','Senin','Selasa','Rabu','Kamis','Jumat','Sabtu'];
+            return `${days[d.getDay()]}, ${d.getDate()} ${months[d.getMonth()]} ${d.getFullYear()}`;
+        }
+
+        function getTodayStr() {
+            const now = new Date();
+            return now.getFullYear() + '-' + String(now.getMonth()+1).padStart(2,'0') + '-' + String(now.getDate()).padStart(2,'0');
         }
 
         function updateClock() {
             const now = new Date();
-            const days = ["Minggu", "Sen", "Sel", "Rab", "Kam", "Jum", "Sab"];
-            const currentDay = days[now.getDay()];
-            const timeString = now.getHours().toString().padStart(2, '0') + ":" + 
-                              now.getMinutes().toString().padStart(2, '0') + ":" + 
-                              now.getSeconds().toString().padStart(2, '0');
+            const dayCode = getDayCode(now.getDay());
+            const t = now.getHours().toString().padStart(2,'0') + ":" + 
+                      now.getMinutes().toString().padStart(2,'0') + ":" + 
+                      now.getSeconds().toString().padStart(2,'0');
             document.getElementById('realtime-clock').innerHTML = 
-                `<span style="font-size: 0.8em; opacity: 0.8;">${formatDay(currentDay)}</span> ${timeString} <span style="font-size: 0.8em; opacity: 0.8;">WIT</span>`;
+                `<span style="font-size:0.8em;opacity:0.8;">${formatDay(dayCode)}</span> ${t} <span style="font-size:0.8em;opacity:0.8;">WIT</span>`;
         }
 
-        // Tab Management
-        function switchTab(tabName) {
-            // Hanya monitoring yang perlu login
+        function escapeStr(str) {
+            return str.replace(/'/g, "\\'").replace(/"/g, '\\"');
+        }
+
+        // ============================================================
+        // SEND DATA TO GOOGLE SHEETS
+        // Menggunakan fetch + mode no-cors (POST)
+        // Untuk GET (ambil data) menggunakan redirect follow
+        // ============================================================
+
+        /**
+         * Kirim data kehadiran ke Google Sheets
+         * Mengembalikan true jika request terkirim (no-cors tidak bisa verifikasi response)
+         */
+        async function sendToSheets(record) {
+            try {
+                await fetch(CONFIG.SCRIPT_URL, {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    headers: { 'Content-Type': 'text/plain' },
+                    body: JSON.stringify(record)
+                });
+                // no-cors selalu return opaque response, kita anggap berhasil
+                // dan simpan juga ke local sebagai cache
+                addLocalAttendance(record);
+                return true;
+            } catch (error) {
+                console.error('Send to sheets error:', error);
+                // Tetap simpan ke local sebagai backup
+                addLocalAttendance(record);
+                return false;
+            }
+        }
+
+        /**
+         * Ambil data dari Google Sheets via GET
+         * Fallback ke data lokal jika gagal
+         */
+        async function fetchFromSheets(params) {
+            const queryStr = new URLSearchParams(params).toString();
+            const url = CONFIG.SCRIPT_URL + '?' + queryStr;
+
+            try {
+                const response = await fetch(url, {
+                    method: 'GET',
+                    redirect: 'follow'
+                });
+
+                if (!response.ok) throw new Error('Response not ok: ' + response.status);
+
+                const data = await response.json();
+                return { success: true, data: data };
+            } catch (error) {
+                console.error('Fetch from sheets error:', error);
+                return { success: false, data: [] };
+            }
+        }
+
+        // ============================================================
+        // TAB MANAGEMENT
+        // ============================================================
+        function switchTab(tabName, btnElement) {
             if (!isLoggedIn && tabName === 'monitoring') {
-                // Show login form
                 document.getElementById('login-section').classList.remove('hidden');
                 document.getElementById('monitoring-section').classList.add('hidden');
             }
 
-            // Hide all sections
-            document.querySelectorAll('.content-section').forEach(section => {
-                section.classList.remove('active');
-            });
+            document.querySelectorAll('.content-section').forEach(s => s.classList.remove('active'));
+            document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
 
-            // Remove active class from all tabs
-            document.querySelectorAll('.nav-tab').forEach(tab => {
-                tab.classList.remove('active');
-            });
-
-            // Show selected section
             document.getElementById(`section-${tabName}`).classList.add('active');
-            
-            // Add active class to clicked tab
-            event.target.classList.add('active');
+            if (btnElement) btnElement.classList.add('active');
 
-            // Load data for specific tabs
             if (tabName === 'monitoring' && isLoggedIn) {
                 loadTodaySchedule();
+                checkTodayHoliday();
             } else if (tabName === 'dashboard') {
                 updateDashboard();
             } else if (tabName === 'rekap') {
@@ -908,77 +942,265 @@
             }
         }
 
-        // Login Handler
+        // ============================================================
+        // LOGIN / LOGOUT
+        // ============================================================
         function handleLogin(event) {
             event.preventDefault();
             const password = document.getElementById('password-input').value;
             
             if (password === CONFIG.PASSWORD) {
                 isLoggedIn = true;
-                
-                // Hide login form, show monitoring form
                 document.getElementById('login-section').classList.add('hidden');
                 document.getElementById('monitoring-section').classList.remove('hidden');
-                
                 showAlert('monitoring', 'success', '✅ Login berhasil! Selamat datang, Petugas Monitoring.');
-                
-                // Load today's schedule
                 loadTodaySchedule();
-                
-                // Clear password input
+                setHolidayDateDefault();
+                checkTodayHoliday();
                 document.getElementById('password-input').value = '';
             } else {
                 showAlert('login', 'error', '❌ Password salah! Silakan coba lagi.');
             }
         }
 
-        // Logout Handler
         function handleLogout() {
             isLoggedIn = false;
             document.getElementById('login-section').classList.remove('hidden');
             document.getElementById('monitoring-section').classList.add('hidden');
             document.getElementById('password-input').value = '';
-            
             showAlert('login', 'success', '✅ Anda telah logout.');
         }
 
-        // Show Alert
         function showAlert(section, type, message) {
             const alertDiv = document.getElementById(`${section}-alert`);
-            alertDiv.innerHTML = `
-                <div class="alert alert-${type === 'error' ? 'error' : 'success'}">
-                    ${message}
-                </div>
-            `;
-            setTimeout(() => {
-                alertDiv.innerHTML = '';
-            }, 5000);
+            if (!alertDiv) return;
+            const cls = type === 'error' ? 'alert-error' : 'alert-success';
+            alertDiv.innerHTML = `<div class="alert ${cls}">${message}</div>`;
+            setTimeout(() => { alertDiv.innerHTML = ''; }, 6000);
         }
 
-        // Load Today's Schedule
+        // ============================================================
+        // HOLIDAY DATE DEFAULT & CHECK
+        // ============================================================
+        function setHolidayDateDefault() {
+            document.getElementById('holiday-date').value = getTodayStr();
+        }
+
+        function checkTodayHoliday() {
+            const todayStr = getTodayStr();
+            const localHoliday = isDateLocalHoliday(todayStr);
+            if (localHoliday) {
+                showHolidayBanner(localHoliday.reason);
+                markAllScheduleAsHoliday(localHoliday.reason);
+            }
+        }
+
+        // ============================================================
+        // HOLIDAY FEATURE
+        // ============================================================
+        function getScheduleForDate(dateStr) {
+            const d = new Date(dateStr + 'T00:00:00');
+            const dayCode = getDayCode(d.getDay());
+            return database.filter(item => item.hri === dayCode && item.type !== 'break');
+        }
+
+        function confirmHoliday() {
+            const dateStr = document.getElementById('holiday-date').value;
+            const reason = document.getElementById('holiday-reason').value.trim();
+
+            if (!dateStr) {
+                showAlert('monitoring', 'error', '❌ Silakan pilih tanggal libur terlebih dahulu.');
+                return;
+            }
+            if (!reason) {
+                showAlert('monitoring', 'error', '❌ Silakan isi keterangan libur (contoh: Hari Raya Idul Fitri).');
+                return;
+            }
+
+            // Cek apakah sudah pernah ditandai libur
+            const existing = isDateLocalHoliday(dateStr);
+            if (existing) {
+                showAlert('monitoring', 'error', `⚠️ Tanggal ${formatDateIndonesia(dateStr)} sudah pernah ditandai libur: "${existing.reason}". Tidak perlu ditandai ulang.`);
+                return;
+            }
+
+            const schedules = getScheduleForDate(dateStr);
+
+            if (schedules.length === 0) {
+                showAlert('monitoring', 'error', `❌ Tidak ada jadwal pelajaran pada ${formatDateIndonesia(dateStr)}. Mungkin hari tersebut memang hari Minggu atau tidak ada jadwal.`);
+                return;
+            }
+
+            const uniqueClasses = [...new Set(schedules.map(s => s.kls))];
+            const uniqueTeachers = [...new Set(schedules.map(s => s.guru))];
+
+            holidayPending = { dateStr, reason, schedules, uniqueClasses, uniqueTeachers };
+
+            // Show modal
+            document.getElementById('modal-body-text').innerHTML = `
+                <p>Anda akan menandai <strong>${formatDateIndonesia(dateStr)}</strong> sebagai hari libur:</p>
+                <p style="margin:12px 0;padding:12px 16px;background:rgba(255,255,255,0.1);border-radius:10px;font-style:italic;">
+                    "${reason}"
+                </p>
+                <p>Akan mengirimkan status <strong style="color:#e879f9;">"Libur"</strong> untuk:</p>
+                <p style="margin-top:8px;">
+                    📚 <strong>${schedules.length}</strong> jadwal pelajaran<br>
+                    🏫 <strong>${uniqueClasses.length}</strong> kelas<br>
+                    👤 <strong>${uniqueTeachers.length}</strong> guru
+                </p>
+            `;
+
+            document.getElementById('modal-progress').classList.add('hidden');
+            document.getElementById('modal-actions').innerHTML = `
+                <button class="btn btn-ghost" onclick="closeHolidayModal()">Batal</button>
+                <button class="btn btn-holiday" id="btn-confirm-holiday" onclick="executeHoliday()">✅ Ya, Tandai Libur</button>
+            `;
+            document.getElementById('modal-actions').classList.remove('hidden');
+            document.getElementById('holiday-modal').classList.remove('hidden');
+        }
+
+        function closeHolidayModal() {
+            document.getElementById('holiday-modal').classList.add('hidden');
+            holidayPending = null;
+        }
+
+        async function executeHoliday() {
+            if (!holidayPending) return;
+
+            const { dateStr, reason, schedules } = holidayPending;
+            const d = new Date(dateStr + 'T00:00:00');
+            const dayCode = getDayCode(d.getDay());
+
+            // Hide actions, show progress
+            document.getElementById('modal-actions').classList.add('hidden');
+            document.getElementById('modal-progress').classList.remove('hidden');
+
+            const total = schedules.length;
+            let completed = 0;
+            let failed = 0;
+
+            const updateProgress = () => {
+                const pct = Math.round((completed / total) * 100);
+                document.getElementById('progress-bar').style.width = pct + '%';
+                document.getElementById('progress-text').textContent = `Memproses ${completed} dari ${total} jadwal... (${pct}%)`;
+            };
+
+            updateProgress();
+
+            // Kirim setiap jadwal sebagai "Libur"
+            for (const item of schedules) {
+                const record = {
+                    tanggal: dateStr,
+                    hari: formatDay(dayCode),
+                    jam: item.jam,
+                    kelas: item.kls,
+                    guru: item.guru,
+                    mapel: item.mapel,
+                    status: 'Libur',
+                    keterangan: reason,
+                    timestamp: new Date().toISOString()
+                };
+
+                const success = await sendToSheets(record);
+                completed++;
+                if (!success) failed++;
+                updateProgress();
+
+                // Delay agar tidak overload server
+                await new Promise(r => setTimeout(r, 200));
+            }
+
+            // Selesai
+            document.getElementById('progress-bar').style.width = '100%';
+            
+            if (failed === 0) {
+                document.getElementById('progress-text').innerHTML = `✅ Selesai! <strong>${total}</strong> jadwal berhasil ditandai libur dan dikirim ke Google Sheets.`;
+            } else {
+                document.getElementById('progress-text').innerHTML = `⚠️ Selesai! ${total - failed} terkirim, ${failed} gagal (tersimpan lokal).`;
+            }
+
+            // Simpan ke local holidays
+            addLocalHoliday(dateStr, reason, total);
+
+            // Show close button
+            document.getElementById('modal-actions').innerHTML = `
+                <button class="btn btn-holiday" onclick="closeHolidayModal()" style="width:100%;">✅ Selesai</button>
+            `;
+            document.getElementById('modal-actions').classList.remove('hidden');
+
+            // Add to holiday log
+            addHolidayLog(dateStr, reason, total, failed);
+
+            // Jika libur = hari ini, update tampilan
+            if (dateStr === getTodayStr()) {
+                showHolidayBanner(reason);
+                markAllScheduleAsHoliday(reason);
+            }
+
+            showAlert('monitoring', 'success', 
+                `🏖️ Berhasil! ${total} jadwal pada ${formatDateIndonesia(dateStr)} telah ditandai sebagai LIBUR (${reason}).`);
+
+            holidayPending = null;
+        }
+
+        function addHolidayLog(dateStr, reason, total, failed) {
+            const logContainer = document.getElementById('holiday-log');
+            const timeStr = new Date().toLocaleTimeString('id-ID');
+            logContainer.insertAdjacentHTML('afterbegin', `
+                <div class="holiday-log-item">
+                    <span style="font-size:1.3rem;">🏖️</span>
+                    <span>
+                        <strong>${formatDateIndonesia(dateStr)}</strong> — ${reason} 
+                        (${total} jadwal${failed > 0 ? `, ${failed} gagal` : ' terkirim'})
+                    </span>
+                    <span class="log-time">${timeStr}</span>
+                </div>
+            `);
+        }
+
+        function showHolidayBanner(reason) {
+            const banner = document.getElementById('holiday-banner');
+            document.getElementById('holiday-banner-reason').textContent = `— ${reason}`;
+            banner.classList.remove('hidden');
+        }
+
+        function markAllScheduleAsHoliday(reason) {
+            const scheduleItems = document.querySelectorAll('.schedule-item');
+            scheduleItems.forEach(item => {
+                item.classList.add('holiday-marked');
+                item.querySelectorAll('.status-buttons button').forEach(btn => {
+                    btn.disabled = true;
+                    btn.style.opacity = '0.3';
+                });
+                const statusDivs = item.querySelectorAll('[id^="status-"]');
+                statusDivs.forEach(div => {
+                    div.innerHTML = `<div class="status-badge status-libur">🏖️ Status: Libur — ${reason}</div>`;
+                });
+            });
+        }
+
+        // ============================================================
+        // LOAD TODAY'S SCHEDULE
+        // ============================================================
         function loadTodaySchedule() {
             const now = new Date();
             const dayCode = getDayCode(now.getDay());
             
-            // Filter schedule for today, exclude breaks
-            const todaySchedule = database.filter(item => 
-                item.hri === dayCode && item.type !== 'break'
-            );
-
-            const scheduleContainer = document.getElementById('schedule-today');
+            const todaySchedule = database.filter(item => item.hri === dayCode && item.type !== 'break');
+            const container = document.getElementById('schedule-today');
             
             if (todaySchedule.length === 0) {
-                scheduleContainer.innerHTML = `
-                    <div style="text-align: center; padding: 40px; opacity: 0.8;">
-                        <div style="font-size: 3rem; margin-bottom: 16px;">📅</div>
-                        <div style="font-size: 1.2rem;">Tidak ada jadwal untuk hari ini</div>
+                container.innerHTML = `
+                    <div style="text-align:center;padding:40px;opacity:0.8;">
+                        <div style="font-size:3rem;margin-bottom:16px;">📅</div>
+                        <div style="font-size:1.2rem;">Tidak ada jadwal untuk hari ini (${formatDay(dayCode)})</div>
                     </div>
                 `;
                 return;
             }
 
-            scheduleContainer.innerHTML = todaySchedule.map((item, index) => {
-                const scheduleId = `${item.kls}-${item.jam}-${item.guru}`.replace(/\s/g, '-');
+            container.innerHTML = todaySchedule.map((item, index) => {
+                const scheduleId = `${item.kls}-${item.jam}-${index}`.replace(/[^a-zA-Z0-9-]/g, '_');
                 return `
                     <div class="schedule-item" id="schedule-${index}">
                         <div class="schedule-header">
@@ -989,34 +1211,39 @@
                                 <div class="schedule-teacher">👤 ${item.guru}</div>
                             </div>
                             <div class="status-buttons">
-                                <button class="btn btn-success btn-sm" onclick="markAttendance('${scheduleId}', '${item.guru}', '${item.kls}', '${item.mapel}', '${item.jam}', 'Hadir')">
+                                <button class="btn btn-success btn-sm" onclick="markAttendance('${scheduleId}', '${escapeStr(item.guru)}', '${escapeStr(item.kls)}', '${escapeStr(item.mapel)}', '${item.jam}', 'Hadir', this)">
                                     ✅ Hadir
                                 </button>
-                                <button class="btn btn-warning btn-sm" onclick="markAttendance('${scheduleId}', '${item.guru}', '${item.kls}', '${item.mapel}', '${item.jam}', 'Sakit')">
+                                <button class="btn btn-warning btn-sm" onclick="markAttendance('${scheduleId}', '${escapeStr(item.guru)}', '${escapeStr(item.kls)}', '${escapeStr(item.mapel)}', '${item.jam}', 'Sakit', this)">
                                     🤒 Sakit
                                 </button>
-                                <button class="btn btn-info btn-sm" onclick="markAttendance('${scheduleId}', '${item.guru}', '${item.kls}', '${item.mapel}', '${item.jam}', 'Ijin')">
+                                <button class="btn btn-info btn-sm" onclick="markAttendance('${scheduleId}', '${escapeStr(item.guru)}', '${escapeStr(item.kls)}', '${escapeStr(item.mapel)}', '${item.jam}', 'Ijin', this)">
                                     📄 Ijin
                                 </button>
-                                <button class="btn btn-danger btn-sm" onclick="markAttendance('${scheduleId}', '${item.guru}', '${item.kls}', '${item.mapel}', '${item.jam}', 'Alpha')">
+                                <button class="btn btn-danger btn-sm" onclick="markAttendance('${scheduleId}', '${escapeStr(item.guru)}', '${escapeStr(item.kls)}', '${escapeStr(item.mapel)}', '${item.jam}', 'Alpha', this)">
                                     ❌ Alpha
                                 </button>
                             </div>
                         </div>
-                        <div id="status-${scheduleId}" style="margin-top: 12px;"></div>
+                        <div id="status-${scheduleId}" style="margin-top:12px;"></div>
                     </div>
                 `;
             }).join('');
         }
 
-        // Mark Attendance
-        async function markAttendance(scheduleId, guru, kelas, mapel, jam, status) {
+        // ============================================================
+        // MARK ATTENDANCE (single)
+        // ============================================================
+        async function markAttendance(scheduleId, guru, kelas, mapel, jam, status, btnElement) {
             const statusDiv = document.getElementById(`status-${scheduleId}`);
+            statusDiv.innerHTML = `<span class="loading"></span> Menyimpan ke Google Sheets...`;
             
-            // Show loading
-            statusDiv.innerHTML = `<div class="loading"></div> Menyimpan...`;
-            
-            const attendanceRecord = {
+            // Disable semua tombol di row ini
+            const parentItem = btnElement.closest('.schedule-item');
+            const allBtns = parentItem.querySelectorAll('.status-buttons button');
+            allBtns.forEach(b => b.disabled = true);
+
+            const record = {
                 tanggal: currentDate.toISOString().split('T')[0],
                 hari: formatDay(getDayCode(currentDate.getDay())),
                 jam: jam,
@@ -1024,125 +1251,141 @@
                 guru: guru,
                 mapel: mapel,
                 status: status,
+                keterangan: '',
                 timestamp: new Date().toISOString()
             };
 
-            try {
-                // Send to Google Sheets
-                const response = await fetch(CONFIG.SCRIPT_URL, {
-                    method: 'POST',
-                    mode: 'no-cors',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify(attendanceRecord)
-                });
+            const success = await sendToSheets(record);
 
-                // Show success status
-                const statusClass = status === 'Hadir' ? 'status-hadir' : 
-                                  status === 'Sakit' ? 'status-sakit' : 
-                                  status === 'Ijin' ? 'status-ijin' : 'status-alpha';
-                
-                const statusIcon = status === 'Hadir' ? '✅' : 
-                                 status === 'Sakit' ? '🤒' : 
-                                 status === 'Ijin' ? '📄' : '❌';
-                
-                statusDiv.innerHTML = `
-                    <div class="status-badge ${statusClass}">
-                        ${statusIcon} Status: ${status} - ${new Date().toLocaleTimeString('id-ID')}
-                    </div>
-                `;
+            const statusClass = status === 'Hadir' ? 'status-hadir' : 
+                              status === 'Sakit' ? 'status-sakit' : 
+                              status === 'Ijin' ? 'status-ijin' : 'status-alpha';
+            
+            const statusIcon = status === 'Hadir' ? '✅' : 
+                             status === 'Sakit' ? '🤒' : 
+                             status === 'Ijin' ? '📄' : '❌';
+            
+            const savedText = success ? 'Terkirim ke Sheets' : 'Tersimpan lokal';
+            
+            statusDiv.innerHTML = `
+                <div class="status-badge ${statusClass}">
+                    ${statusIcon} ${status} — ${new Date().toLocaleTimeString('id-ID')} (${savedText})
+                </div>
+            `;
 
-                showAlert('monitoring', 'success', `✅ Kehadiran ${guru} berhasil dicatat: ${status}`);
-                
-            } catch (error) {
-                console.error('Error:', error);
-                statusDiv.innerHTML = `
-                    <div class="alert alert-error">
-                        ❌ Gagal menyimpan data. Silakan coba lagi.
-                    </div>
-                `;
-            }
+            // Re-enable buttons agar bisa ganti status jika salah
+            allBtns.forEach(b => b.disabled = false);
+            
+            showAlert('monitoring', 'success', `${statusIcon} Kehadiran ${guru}: ${status} — ${savedText}`);
         }
 
-        // Update Dashboard
+        // ============================================================
+        // DASHBOARD — ambil dari server, fallback ke local
+        // ============================================================
         async function updateDashboard() {
             const period = document.getElementById('filter-period').value;
             const month = document.getElementById('filter-month').value;
             
-            // Set current month as default
-            const now = new Date();
-            document.getElementById('filter-month').value = now.getMonth() + 1;
+            document.getElementById('dashboard-loading').classList.remove('hidden');
+            document.getElementById('dashboard-error').classList.add('hidden');
+
+            // Coba ambil dari server
+            const result = await fetchFromSheets({ period: period, month: month });
             
-            try {
-                // Fetch data from Google Sheets
-                const response = await fetch(`${CONFIG.SCRIPT_URL}?period=${period}&month=${month}`);
-                const data = await response.json();
-                
-                // Calculate statistics
-                const stats = calculateStats(data);
-                
-                // Update stat cards
-                document.getElementById('stat-hadir').textContent = stats.hadir;
-                document.getElementById('stat-sakit').textContent = stats.sakit;
-                document.getElementById('stat-ijin').textContent = stats.ijin;
-                document.getElementById('stat-alpha').textContent = stats.alpha;
-                
-                const total = stats.hadir + stats.sakit + stats.ijin + stats.alpha;
-                document.getElementById('stat-hadir-pct').textContent = 
-                    total > 0 ? `${((stats.hadir / total) * 100).toFixed(1)}%` : '0%';
-                document.getElementById('stat-sakit-pct').textContent = 
-                    total > 0 ? `${((stats.sakit / total) * 100).toFixed(1)}%` : '0%';
-                document.getElementById('stat-ijin-pct').textContent = 
-                    total > 0 ? `${((stats.ijin / total) * 100).toFixed(1)}%` : '0%';
-                document.getElementById('stat-alpha-pct').textContent = 
-                    total > 0 ? `${((stats.alpha / total) * 100).toFixed(1)}%` : '0%';
-                
-            } catch (error) {
-                console.error('Error loading dashboard:', error);
+            let data;
+            let fromServer = false;
+
+            if (result.success && Array.isArray(result.data) && result.data.length > 0) {
+                data = result.data;
+                fromServer = true;
+            } else {
+                // Fallback ke local data
+                data = getLocalAttendanceFiltered(period, month);
+                if (data.length === 0 && !result.success) {
+                    document.getElementById('dashboard-error').classList.remove('hidden');
+                }
             }
+
+            const stats = calculateStats(data);
+            
+            document.getElementById('stat-hadir').textContent = stats.hadir;
+            document.getElementById('stat-sakit').textContent = stats.sakit;
+            document.getElementById('stat-ijin').textContent = stats.ijin;
+            document.getElementById('stat-alpha').textContent = stats.alpha;
+            document.getElementById('stat-libur').textContent = stats.libur;
+            
+            const total = stats.hadir + stats.sakit + stats.ijin + stats.alpha + stats.libur;
+            const pct = (v) => total > 0 ? `${((v / total) * 100).toFixed(1)}%` : '0%';
+            
+            document.getElementById('stat-hadir-pct').textContent = pct(stats.hadir);
+            document.getElementById('stat-sakit-pct').textContent = pct(stats.sakit);
+            document.getElementById('stat-ijin-pct').textContent = pct(stats.ijin);
+            document.getElementById('stat-alpha-pct').textContent = pct(stats.alpha);
+            document.getElementById('stat-libur-pct').textContent = pct(stats.libur);
+
+            document.getElementById('dashboard-loading').classList.add('hidden');
         }
 
-        // Calculate Statistics
         function calculateStats(data) {
-            const stats = {
-                hadir: 0,
-                sakit: 0,
-                ijin: 0,
-                alpha: 0
-            };
-            
+            const stats = { hadir: 0, sakit: 0, ijin: 0, alpha: 0, libur: 0 };
             data.forEach(record => {
-                if (record.status === 'Hadir') stats.hadir++;
-                else if (record.status === 'Sakit') stats.sakit++;
-                else if (record.status === 'Ijin') stats.ijin++;
-                else if (record.status === 'Alpha') stats.alpha++;
+                const s = record.status || record.Status || '';
+                if (s === 'Hadir') stats.hadir++;
+                else if (s === 'Sakit') stats.sakit++;
+                else if (s === 'Ijin') stats.ijin++;
+                else if (s === 'Alpha') stats.alpha++;
+                else if (s === 'Libur') stats.libur++;
             });
-            
             return stats;
         }
 
-        // Load Teacher List
-        function loadTeacherList() {
-            const select = document.getElementById('rekap-guru');
+        /**
+         * Filter data lokal berdasarkan periode
+         */
+        function getLocalAttendanceFiltered(period, month) {
+            const allData = getLocalData(STORAGE_KEYS.ATTENDANCE);
+            const now = new Date();
+            const currentYear = now.getFullYear();
             
-            select.innerHTML = '<option value="all">Semua Guru</option>' +
-                teachersList.map(teacher => `<option value="${teacher}">${teacher}</option>`).join('');
+            return allData.filter(record => {
+                const tanggal = new Date(record.tanggal);
+                if (isNaN(tanggal.getTime())) return false;
+
+                switch(period) {
+                    case 'today':
+                        return record.tanggal === getTodayStr();
+                    case 'week':
+                        const weekAgo = new Date(now.getTime() - 7*24*60*60*1000);
+                        return tanggal >= weekAgo && tanggal <= now;
+                    case 'month':
+                        return tanggal.getMonth() + 1 === parseInt(month) && tanggal.getFullYear() === currentYear;
+                    default:
+                        return true;
+                }
+            });
         }
 
-        // Update Rekapitulasi
+        // ============================================================
+        // REKAPITULASI — ambil dari server, fallback ke local
+        // ============================================================
+        function loadTeacherList() {
+            const select = document.getElementById('rekap-guru');
+            select.innerHTML = '<option value="all">Semua Guru</option>' +
+                teachersList.map(t => `<option value="${t}">${t}</option>`).join('');
+        }
+
         async function updateRekap() {
             const period = document.getElementById('rekap-period').value;
             const guru = document.getElementById('rekap-guru').value;
             
-            try {
-                // Fetch data from Google Sheets
-                const response = await fetch(`${CONFIG.SCRIPT_URL}?action=rekap&period=${period}&guru=${guru}`);
-                const data = await response.json();
-                
-                // Generate table
-                const tbody = document.getElementById('rekap-tbody');
-                tbody.innerHTML = data.map((row, index) => `
+            document.getElementById('rekap-loading').classList.remove('hidden');
+
+            const result = await fetchFromSheets({ action: 'rekap', period: period, guru: guru });
+            
+            const tbody = document.getElementById('rekap-tbody');
+            
+            if (result.success && Array.isArray(result.data) && result.data.length > 0) {
+                tbody.innerHTML = result.data.map((row, index) => `
                     <tr>
                         <td>${index + 1}</td>
                         <td>${row.guru}</td>
@@ -1150,37 +1393,104 @@
                         <td>${row.sakit}</td>
                         <td>${row.ijin}</td>
                         <td>${row.alpha}</td>
+                        <td>${row.libur || 0}</td>
                         <td>${row.total}</td>
-                        <td>
-                            <div class="status-badge status-hadir">
-                                ${row.percentage}%
-                            </div>
-                        </td>
+                        <td><div class="status-badge status-hadir">${row.percentage}%</div></td>
                     </tr>
                 `).join('');
+            } else {
+                // Fallback: hitung dari data lokal
+                const localData = getLocalData(STORAGE_KEYS.ATTENDANCE);
+                const rekapLocal = calculateLocalRekap(localData, guru);
                 
-            } catch (error) {
-                console.error('Error loading rekap:', error);
-                document.getElementById('rekap-tbody').innerHTML = `
-                    <tr>
-                        <td colspan="8" style="text-align: center; padding: 40px;">
-                            <div style="opacity: 0.7;">Data belum tersedia</div>
-                        </td>
-                    </tr>
-                `;
+                if (rekapLocal.length > 0) {
+                    tbody.innerHTML = rekapLocal.map((row, index) => `
+                        <tr>
+                            <td>${index + 1}</td>
+                            <td>${row.guru}</td>
+                            <td>${row.hadir}</td>
+                            <td>${row.sakit}</td>
+                            <td>${row.ijin}</td>
+                            <td>${row.alpha}</td>
+                            <td>${row.libur}</td>
+                            <td>${row.total}</td>
+                            <td><div class="status-badge status-hadir">${row.percentage}%</div></td>
+                        </tr>
+                    `).join('');
+                } else {
+                    tbody.innerHTML = `
+                        <tr><td colspan="9" style="text-align:center;padding:40px;">
+                            <div style="opacity:0.7;">📭 Data belum tersedia. Mulai input kehadiran untuk melihat rekapitulasi.</div>
+                        </td></tr>
+                    `;
+                }
             }
+            
+            document.getElementById('rekap-loading').classList.add('hidden');
         }
 
-        // Initialize
+        function calculateLocalRekap(data, guruFilter) {
+            const guruStats = {};
+            
+            data.forEach(record => {
+                const guru = record.guru;
+                const status = record.status;
+                
+                if (guruFilter !== 'all' && guru !== guruFilter) return;
+                
+                if (!guruStats[guru]) {
+                    guruStats[guru] = { guru, hadir:0, sakit:0, ijin:0, alpha:0, libur:0, total:0 };
+                }
+                
+                guruStats[guru].total++;
+                if (status === 'Hadir') guruStats[guru].hadir++;
+                else if (status === 'Sakit') guruStats[guru].sakit++;
+                else if (status === 'Ijin') guruStats[guru].ijin++;
+                else if (status === 'Alpha') guruStats[guru].alpha++;
+                else if (status === 'Libur') guruStats[guru].libur++;
+            });
+
+            return Object.values(guruStats).map(stat => {
+                const nonLibur = stat.total - stat.libur;
+                stat.percentage = nonLibur > 0 ? ((stat.hadir / nonLibur) * 100).toFixed(1) : '0.0';
+                return stat;
+            }).sort((a, b) => parseFloat(b.percentage) - parseFloat(a.percentage));
+        }
+
+        // ============================================================
+        // INIT — Load holiday log from local storage on startup
+        // ============================================================
+        function loadHolidayLogFromLocal() {
+            const holidays = getLocalHolidays();
+            const logContainer = document.getElementById('holiday-log');
+            if (!logContainer) return;
+            
+            holidays.slice().reverse().forEach(h => {
+                const d = new Date(h.timestamp);
+                const timeStr = d.toLocaleTimeString('id-ID');
+                logContainer.insertAdjacentHTML('beforeend', `
+                    <div class="holiday-log-item">
+                        <span style="font-size:1.3rem;">🏖️</span>
+                        <span>
+                            <strong>${formatDateIndonesia(h.date)}</strong> — ${h.reason} 
+                            (${h.count} jadwal terkirim)
+                        </span>
+                        <span class="log-time">${timeStr}</span>
+                    </div>
+                `);
+            });
+        }
+
+        // ============================================================
+        // INITIALIZE
+        // ============================================================
         document.addEventListener('DOMContentLoaded', function() {
             updateClock();
             setInterval(updateClock, 1000);
             
-            // Set current month
             const now = new Date();
             document.getElementById('filter-month').value = now.getMonth() + 1;
             
-            // Load dashboard by default
             updateDashboard();
             loadTeacherList();
         });
