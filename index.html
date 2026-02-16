@@ -6,7 +6,7 @@
     <title>Monitoring Kehadiran Guru - SMK Negeri 1 Maluku Tengah</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap');
-        
+
         :root {
             --primary: #6366f1;
             --primary-dark: #4f46e5;
@@ -15,7 +15,7 @@
             --warning: #f59e0b;
             --danger: #ef4444;
             --info: #3b82f6;
-            --holiday: #e879f9;
+            --holiday: #a855f7;
             --glass: rgba(255, 255, 255, 0.1);
             --glass-border: rgba(255, 255, 255, 0.2);
             --shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
@@ -40,442 +40,246 @@
 
         .container { max-width: 1400px; margin: 0 auto; padding: 20px; }
 
-        .header {
-            text-align: center;
-            margin-bottom: 40px;
-            animation: fadeInDown 0.8s ease;
-        }
+        /* Header */
+        .header { text-align: center; margin-bottom: 40px; animation: fadeInDown 0.8s ease; }
+        @keyframes fadeInDown { from { opacity: 0; transform: translateY(-30px); } to { opacity: 1; transform: translateY(0); } }
 
-        @keyframes fadeInDown {
-            from { opacity: 0; transform: translateY(-30px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .header h1 {
-            font-size: 2.5rem;
-            font-weight: 800;
-            text-shadow: 2px 4px 20px rgba(0, 0, 0, 0.3);
-            margin-bottom: 10px;
-            letter-spacing: -1px;
-        }
+        .header h1 { font-size: 2.5rem; font-weight: 800; text-shadow: 2px 4px 20px rgba(0,0,0,0.3); margin-bottom: 10px; letter-spacing: -1px; }
 
         .back-btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            padding: 12px 24px;
-            background: var(--glass);
-            backdrop-filter: blur(20px);
-            border: 1px solid var(--glass-border);
-            border-radius: 50px;
-            color: white;
-            text-decoration: none;
-            font-weight: 600;
-            margin-bottom: 30px;
+            display: inline-flex; align-items: center; gap: 8px; padding: 12px 24px;
+            background: var(--glass); backdrop-filter: blur(20px); border: 1px solid var(--glass-border);
+            border-radius: 50px; color: white; text-decoration: none; font-weight: 600; margin-bottom: 30px;
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
-
-        .back-btn:hover {
-            background: rgba(255, 255, 255, 0.2);
-            transform: translateX(-8px);
-        }
-
+        .back-btn:hover { background: rgba(255,255,255,0.2); transform: translateX(-8px); }
         .header .subtitle { font-size: 1.1rem; opacity: 0.9; font-weight: 300; }
 
         .clock-display {
-            display: inline-block;
-            margin-top: 20px;
-            padding: 16px 32px;
-            background: var(--glass);
-            backdrop-filter: blur(20px);
-            border: 1px solid var(--glass-border);
-            border-radius: 50px;
-            font-size: 1.3rem;
-            font-weight: 600;
+            display: inline-block; margin-top: 20px; padding: 16px 32px;
+            background: var(--glass); backdrop-filter: blur(20px); border: 1px solid var(--glass-border);
+            border-radius: 50px; font-size: 1.3rem; font-weight: 600;
         }
 
+        /* Server status indicator */
+        .server-status {
+            display: inline-flex; align-items: center; gap: 8px; margin-top: 12px;
+            padding: 8px 20px; background: rgba(0,0,0,0.2); border-radius: 50px; font-size: 0.85rem;
+        }
+        .status-dot {
+            width: 10px; height: 10px; border-radius: 50%; display: inline-block;
+        }
+        .status-dot.online { background: #10b981; box-shadow: 0 0 8px #10b981; }
+        .status-dot.offline { background: #ef4444; box-shadow: 0 0 8px #ef4444; }
+        .status-dot.checking { background: #f59e0b; animation: blink 1s infinite; }
+        @keyframes blink { 0%,100% { opacity: 1; } 50% { opacity: 0.3; } }
+
+        /* Nav */
         .nav-tabs {
-            display: flex;
-            gap: 12px;
-            margin-bottom: 30px;
-            flex-wrap: wrap;
-            justify-content: center;
-            animation: fadeInUp 0.8s ease 0.2s both;
+            display: flex; gap: 12px; margin-bottom: 30px; flex-wrap: wrap;
+            justify-content: center; animation: fadeInUp 0.8s ease 0.2s both;
         }
-
-        @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(30px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
 
         .nav-tab {
-            padding: 14px 28px;
-            background: var(--glass);
-            backdrop-filter: blur(20px);
-            border: 1px solid var(--glass-border);
-            border-radius: 50px;
-            color: white;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            padding: 14px 28px; background: var(--glass); backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border); border-radius: 50px; color: white;
+            font-weight: 600; cursor: pointer; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
-
-        .nav-tab:hover {
-            background: rgba(255, 255, 255, 0.2);
-            transform: translateY(-2px);
-        }
-
-        .nav-tab.active {
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            box-shadow: 0 8px 30px rgba(99, 102, 241, 0.4);
-        }
+        .nav-tab:hover { background: rgba(255,255,255,0.2); transform: translateY(-2px); }
+        .nav-tab.active { background: linear-gradient(135deg, var(--primary), var(--secondary)); box-shadow: 0 8px 30px rgba(99,102,241,0.4); }
 
         .content-section { display: none; animation: fadeIn 0.5s ease; }
         .content-section.active { display: block; }
-
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
+        /* Glass card */
         .glass-card {
-            background: var(--glass);
-            backdrop-filter: blur(20px);
-            border: 1px solid var(--glass-border);
-            border-radius: 24px;
-            padding: 30px;
-            box-shadow: var(--shadow);
-            margin-bottom: 24px;
+            background: var(--glass); backdrop-filter: blur(20px); border: 1px solid var(--glass-border);
+            border-radius: 24px; padding: 30px; box-shadow: var(--shadow); margin-bottom: 24px;
         }
 
-        .card-title {
-            font-size: 1.5rem;
-            font-weight: 700;
-            margin-bottom: 20px;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            flex-wrap: wrap;
-        }
+        .card-title { font-size: 1.5rem; font-weight: 700; margin-bottom: 20px; display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
 
+        /* Forms */
         .form-group { margin-bottom: 20px; }
         .form-label { display: block; margin-bottom: 8px; font-weight: 600; font-size: 0.95rem; }
-
         .form-input {
-            width: 100%;
-            padding: 14px 20px;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: 12px;
-            background: rgba(255, 255, 255, 0.1);
-            color: white;
-            font-size: 1rem;
-            font-weight: 500;
-            outline: none;
-            transition: all 0.3s ease;
+            width: 100%; padding: 14px 20px; border: 1px solid rgba(255,255,255,0.2);
+            border-radius: 12px; background: rgba(255,255,255,0.1); color: white;
+            font-size: 1rem; font-weight: 500; outline: none; transition: all 0.3s ease;
         }
+        .form-input::placeholder { color: rgba(255,255,255,0.5); }
+        .form-input:focus { background: rgba(255,255,255,0.15); border-color: rgba(255,255,255,0.4); }
+        input[type="date"]::-webkit-calendar-picker-indicator { filter: invert(1); cursor: pointer; }
 
-        .form-input::placeholder { color: rgba(255, 255, 255, 0.5); }
-        .form-input:focus {
-            background: rgba(255, 255, 255, 0.15);
-            border-color: rgba(255, 255, 255, 0.4);
-        }
-
-        /* Fix date input agar teks terlihat putih */
-        input[type="date"]::-webkit-calendar-picker-indicator {
-            filter: invert(1);
-            cursor: pointer;
-        }
-
+        /* Buttons */
         .btn {
-            padding: 14px 28px;
-            border: none;
-            border-radius: 12px;
-            font-weight: 600;
-            font-size: 1rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            padding: 14px 28px; border: none; border-radius: 12px; font-weight: 600;
+            font-size: 1rem; cursor: pointer; transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2); display: inline-flex; align-items: center; gap: 8px;
         }
-
-        .btn-primary { background: linear-gradient(135deg, var(--primary), var(--secondary)); color: white; width: 100%; }
-        .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(99, 102, 241, 0.4); }
+        .btn-primary { background: linear-gradient(135deg, var(--primary), var(--secondary)); color: white; width: 100%; justify-content: center; }
+        .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(99,102,241,0.4); }
         .btn-success { background: linear-gradient(135deg, var(--success), #059669); color: white; }
+        .btn-success:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(16,185,129,0.4); }
         .btn-warning { background: linear-gradient(135deg, var(--warning), #d97706); color: white; }
+        .btn-warning:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(245,158,11,0.4); }
         .btn-danger { background: linear-gradient(135deg, var(--danger), #dc2626); color: white; }
+        .btn-danger:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(239,68,68,0.4); }
         .btn-info { background: linear-gradient(135deg, var(--info), #2563eb); color: white; }
-        .btn-holiday { background: linear-gradient(135deg, #e879f9, #a855f7); color: white; }
-        .btn-holiday:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(168, 85, 247, 0.5); }
+        .btn-info:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(59,130,246,0.4); }
+        .btn-holiday { background: linear-gradient(135deg, #e879f9, var(--holiday)); color: white; }
+        .btn-holiday:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(168,85,247,0.5); }
         .btn-sm { padding: 8px 16px; font-size: 0.875rem; }
         .btn-lg { padding: 18px 36px; font-size: 1.1rem; }
         .btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none !important; }
-        .btn-ghost { background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(255, 255, 255, 0.3); color: white; }
-        .btn-ghost:hover { background: rgba(255, 255, 255, 0.2); }
+        .btn-ghost { background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.3); color: white; }
+        .btn-ghost:hover { background: rgba(255,255,255,0.2); }
 
+        /* Schedule grid */
         .schedule-grid { display: grid; gap: 16px; }
-
         .schedule-item {
-            background: rgba(255, 255, 255, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: 16px;
-            padding: 20px;
-            transition: all 0.3s ease;
+            background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2);
+            border-radius: 16px; padding: 20px; transition: all 0.3s ease;
         }
+        .schedule-item:hover { background: rgba(255,255,255,0.15); transform: translateX(5px); }
+        .schedule-item.holiday-marked { background: rgba(168,85,247,0.15); border-color: rgba(168,85,247,0.4); }
+        .schedule-item.already-marked { background: rgba(16,185,129,0.08); border-color: rgba(16,185,129,0.3); }
 
-        .schedule-item:hover { background: rgba(255, 255, 255, 0.15); transform: translateX(5px); }
-        .schedule-item.holiday-marked {
-            background: rgba(168, 85, 247, 0.15);
-            border-color: rgba(168, 85, 247, 0.4);
-        }
-
-        .schedule-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: start;
-            margin-bottom: 16px;
-            flex-wrap: wrap;
-            gap: 12px;
-        }
-
+        .schedule-header { display: flex; justify-content: space-between; align-items: start; margin-bottom: 16px; flex-wrap: wrap; gap: 12px; }
         .schedule-info { flex: 1; }
-
-        .class-badge {
-            display: inline-block;
-            padding: 6px 14px;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            border-radius: 50px;
-            font-weight: 700;
-            font-size: 0.85rem;
-            margin-bottom: 8px;
-        }
-
+        .class-badge { display: inline-block; padding: 6px 14px; background: linear-gradient(135deg, var(--primary), var(--secondary)); border-radius: 50px; font-weight: 700; font-size: 0.85rem; margin-bottom: 8px; }
         .schedule-time { font-size: 1.1rem; font-weight: 600; margin-bottom: 4px; }
         .schedule-subject { font-size: 1.2rem; font-weight: 700; margin-bottom: 4px; }
         .schedule-teacher { display: flex; align-items: center; gap: 6px; opacity: 0.9; font-size: 0.95rem; }
         .status-buttons { display: flex; gap: 8px; flex-wrap: wrap; }
+        .status-buttons button.active-status { ring: 3px solid white; outline: 3px solid rgba(255,255,255,0.6); outline-offset: 2px; }
 
-        .status-badge {
-            padding: 8px 16px;
-            border-radius: 50px;
-            font-weight: 600;
-            font-size: 0.85rem;
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-        }
-
+        /* Status badges */
+        .status-badge { padding: 8px 16px; border-radius: 50px; font-weight: 600; font-size: 0.85rem; display: inline-flex; align-items: center; gap: 6px; }
         .status-hadir { background: linear-gradient(135deg, var(--success), #059669); }
         .status-sakit { background: linear-gradient(135deg, var(--warning), #d97706); }
         .status-ijin { background: linear-gradient(135deg, var(--info), #2563eb); }
         .status-alpha { background: linear-gradient(135deg, var(--danger), #dc2626); }
-        .status-libur { background: linear-gradient(135deg, #e879f9, #a855f7); }
+        .status-libur { background: linear-gradient(135deg, #e879f9, var(--holiday)); }
 
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 20px;
-            margin-bottom: 30px;
-        }
-
+        /* Stats */
+        .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; margin-bottom: 30px; }
         .stat-card {
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: 20px;
-            padding: 24px;
-            text-align: center;
-            transition: all 0.3s ease;
+            background: rgba(255,255,255,0.1); backdrop-filter: blur(20px);
+            border: 1px solid rgba(255,255,255,0.2); border-radius: 20px; padding: 24px;
+            text-align: center; transition: all 0.3s ease;
         }
-
-        .stat-card:hover { transform: translateY(-5px); box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3); }
+        .stat-card:hover { transform: translateY(-5px); box-shadow: 0 15px 40px rgba(0,0,0,0.3); }
         .stat-icon { font-size: 3rem; margin-bottom: 12px; }
         .stat-value { font-size: 2.5rem; font-weight: 800; margin-bottom: 4px; }
         .stat-label { font-size: 0.95rem; opacity: 0.9; font-weight: 500; }
         .stat-percentage { font-size: 1.1rem; font-weight: 600; margin-top: 8px; }
 
+        /* Filters */
         .filter-controls { display: flex; gap: 12px; margin-bottom: 24px; flex-wrap: wrap; }
-
         .filter-controls select {
-            padding: 12px 20px;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: 12px;
-            background: rgba(255, 255, 255, 0.1);
-            color: white;
-            font-size: 0.95rem;
-            font-weight: 500;
-            outline: none;
-            cursor: pointer;
+            padding: 12px 20px; border: 1px solid rgba(255,255,255,0.2); border-radius: 12px;
+            background: rgba(255,255,255,0.1); color: white; font-size: 0.95rem;
+            font-weight: 500; outline: none; cursor: pointer;
         }
-
         .filter-controls select option { background: #4f46e5; color: white; }
 
+        /* Table */
         .table-container { overflow-x: auto; border-radius: 16px; }
+        table { width: 100%; border-collapse: collapse; background: rgba(255,255,255,0.05); }
+        th, td { padding: 16px; text-align: left; border-bottom: 1px solid rgba(255,255,255,0.1); }
+        th { background: rgba(255,255,255,0.1); font-weight: 700; text-transform: uppercase; font-size: 0.85rem; letter-spacing: 0.5px; }
+        tr:hover { background: rgba(255,255,255,0.05); }
 
-        table { width: 100%; border-collapse: collapse; background: rgba(255, 255, 255, 0.05); }
-        th, td { padding: 16px; text-align: left; border-bottom: 1px solid rgba(255, 255, 255, 0.1); }
-        th {
-            background: rgba(255, 255, 255, 0.1);
-            font-weight: 700;
-            text-transform: uppercase;
-            font-size: 0.85rem;
-            letter-spacing: 0.5px;
-        }
-        tr:hover { background: rgba(255, 255, 255, 0.05); }
-
-        /* Holiday Panel */
+        /* Holiday panel */
         .holiday-panel {
-            background: linear-gradient(135deg, rgba(168, 85, 247, 0.2), rgba(232, 121, 249, 0.15));
-            border: 2px solid rgba(168, 85, 247, 0.4);
-            border-radius: 20px;
-            padding: 28px;
-            margin-bottom: 28px;
-            position: relative;
-            overflow: hidden;
+            background: linear-gradient(135deg, rgba(168,85,247,0.2), rgba(232,121,249,0.15));
+            border: 2px solid rgba(168,85,247,0.4); border-radius: 20px; padding: 28px;
+            margin-bottom: 28px; position: relative; overflow: hidden;
         }
-
         .holiday-panel::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            right: -30%;
-            width: 300px;
-            height: 300px;
-            background: radial-gradient(circle, rgba(232, 121, 249, 0.15) 0%, transparent 70%);
+            content: ''; position: absolute; top: -50%; right: -30%; width: 300px; height: 300px;
+            background: radial-gradient(circle, rgba(232,121,249,0.15) 0%, transparent 70%);
             pointer-events: none;
         }
-
         .holiday-panel .card-title { color: #f0abfc; }
 
-        .holiday-form-row {
-            display: flex;
-            gap: 16px;
-            align-items: end;
-            flex-wrap: wrap;
-            margin-bottom: 16px;
-        }
-
+        .holiday-form-row { display: flex; gap: 16px; align-items: end; flex-wrap: wrap; margin-bottom: 16px; }
         .holiday-form-row .form-group { flex: 1; min-width: 200px; margin-bottom: 0; }
 
         .holiday-info-box {
-            background: rgba(255, 255, 255, 0.08);
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            border-radius: 12px;
-            padding: 16px;
-            margin-top: 16px;
-            font-size: 0.9rem;
-            line-height: 1.6;
-            opacity: 0.9;
+            background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.15);
+            border-radius: 12px; padding: 16px; margin-top: 16px; font-size: 0.9rem;
+            line-height: 1.6; opacity: 0.9;
         }
 
         .holiday-badge-large {
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            padding: 12px 24px;
-            background: linear-gradient(135deg, #e879f9, #a855f7);
-            border-radius: 50px;
-            font-weight: 700;
-            font-size: 1rem;
-            box-shadow: 0 4px 20px rgba(168, 85, 247, 0.4);
+            display: inline-flex; align-items: center; gap: 10px; padding: 12px 24px;
+            background: linear-gradient(135deg, #e879f9, var(--holiday)); border-radius: 50px;
+            font-weight: 700; font-size: 1rem; box-shadow: 0 4px 20px rgba(168,85,247,0.4);
             animation: pulseGlow 2s ease-in-out infinite;
         }
-
-        @keyframes pulseGlow {
-            0%, 100% { box-shadow: 0 4px 20px rgba(168, 85, 247, 0.4); }
-            50% { box-shadow: 0 4px 30px rgba(168, 85, 247, 0.7); }
-        }
+        @keyframes pulseGlow { 0%,100% { box-shadow: 0 4px 20px rgba(168,85,247,0.4); } 50% { box-shadow: 0 4px 30px rgba(168,85,247,0.7); } }
 
         .holiday-log { margin-top: 20px; }
-
         .holiday-log-item {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            padding: 12px 16px;
-            background: rgba(255, 255, 255, 0.06);
-            border-radius: 10px;
-            margin-bottom: 8px;
+            display: flex; align-items: center; gap: 12px; padding: 12px 16px;
+            background: rgba(255,255,255,0.06); border-radius: 10px; margin-bottom: 8px;
             font-size: 0.9rem;
         }
-
         .holiday-log-item .log-time { opacity: 0.6; font-size: 0.8rem; margin-left: auto; }
+
+        /* Saved attendance list for the day */
+        .saved-list-panel {
+            background: rgba(16,185,129,0.1); border: 1px solid rgba(16,185,129,0.3);
+            border-radius: 16px; padding: 20px; margin-bottom: 24px;
+        }
+        .saved-list-panel .card-title { color: #6ee7b7; font-size: 1.2rem; }
+        .saved-count { font-size: 2rem; font-weight: 800; color: #6ee7b7; }
 
         /* Modal */
         .modal-overlay {
-            position: fixed;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background: rgba(0, 0, 0, 0.75);
-            backdrop-filter: blur(8px);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 10000;
-            animation: fadeIn 0.3s ease;
+            position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0,0,0,0.75); backdrop-filter: blur(8px);
+            display: flex; align-items: center; justify-content: center;
+            z-index: 10000; animation: fadeIn 0.3s ease;
         }
-
         .modal-content {
             background: linear-gradient(135deg, #4f46e5, #7c3aed);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: 24px;
-            padding: 36px;
-            max-width: 520px;
-            width: 90%;
-            box-shadow: 0 25px 80px rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(255,255,255,0.2); border-radius: 24px; padding: 36px;
+            max-width: 520px; width: 90%; box-shadow: 0 25px 80px rgba(0,0,0,0.5);
             animation: modalSlideIn 0.4s cubic-bezier(0.16, 1, 0.3, 1);
         }
-
-        @keyframes modalSlideIn {
-            from { opacity: 0; transform: translateY(30px) scale(0.95); }
-            to { opacity: 1; transform: translateY(0) scale(1); }
-        }
-
+        @keyframes modalSlideIn { from { opacity: 0; transform: translateY(30px) scale(0.95); } to { opacity: 1; transform: translateY(0) scale(1); } }
         .modal-title { font-size: 1.4rem; font-weight: 700; margin-bottom: 16px; display: flex; align-items: center; gap: 10px; }
         .modal-body { font-size: 1rem; line-height: 1.6; opacity: 0.95; margin-bottom: 24px; }
         .modal-body strong { color: #f0abfc; }
         .modal-actions { display: flex; gap: 12px; justify-content: flex-end; }
-        .modal-actions .btn { min-width: 120px; text-align: center; }
+        .modal-actions .btn { min-width: 120px; text-align: center; justify-content: center; }
 
-        .progress-bar-container {
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 50px;
-            height: 12px;
-            overflow: hidden;
-            margin: 16px 0;
-        }
-
-        .progress-bar {
-            height: 100%;
-            background: linear-gradient(90deg, #e879f9, #a855f7);
-            border-radius: 50px;
-            transition: width 0.3s ease;
-            width: 0%;
-        }
-
+        .progress-bar-container { background: rgba(255,255,255,0.1); border-radius: 50px; height: 12px; overflow: hidden; margin: 16px 0; }
+        .progress-bar { height: 100%; background: linear-gradient(90deg, #e879f9, var(--holiday)); border-radius: 50px; transition: width 0.3s ease; width: 0%; }
         .progress-text { text-align: center; font-size: 0.9rem; opacity: 0.8; margin-top: 8px; }
 
-        /* Loading */
-        .loading {
-            display: inline-block;
-            width: 20px;
-            height: 20px;
-            border: 3px solid rgba(255, 255, 255, 0.3);
-            border-radius: 50%;
-            border-top-color: white;
-            animation: spin 1s ease-in-out infinite;
-        }
-
+        /* Loading & Alerts */
+        .loading { display: inline-block; width: 20px; height: 20px; border: 3px solid rgba(255,255,255,0.3); border-radius: 50%; border-top-color: white; animation: spin 1s ease-in-out infinite; }
         @keyframes spin { to { transform: rotate(360deg); } }
 
-        /* Alert */
-        .alert {
-            padding: 16px 20px;
-            border-radius: 12px;
-            margin-bottom: 20px;
-            font-weight: 500;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
+        .alert { padding: 16px 20px; border-radius: 12px; margin-bottom: 20px; font-weight: 500; display: flex; align-items: center; gap: 12px; }
+        .alert-success { background: rgba(16,185,129,0.2); border: 1px solid rgba(16,185,129,0.4); }
+        .alert-error { background: rgba(239,68,68,0.2); border: 1px solid rgba(239,68,68,0.4); }
+        .alert-holiday { background: rgba(168,85,247,0.2); border: 1px solid rgba(168,85,247,0.4); }
+        .alert-info { background: rgba(59,130,246,0.2); border: 1px solid rgba(59,130,246,0.4); }
 
-        .alert-success { background: rgba(16, 185, 129, 0.2); border: 1px solid rgba(16, 185, 129, 0.4); }
-        .alert-error { background: rgba(239, 68, 68, 0.2); border: 1px solid rgba(239, 68, 68, 0.4); }
-        .alert-holiday { background: rgba(168, 85, 247, 0.2); border: 1px solid rgba(168, 85, 247, 0.4); }
+        /* Sync indicator */
+        .sync-indicator {
+            display: inline-flex; align-items: center; gap: 6px;
+            padding: 4px 12px; border-radius: 50px; font-size: 0.75rem; font-weight: 600;
+        }
+        .sync-server { background: rgba(16,185,129,0.2); color: #6ee7b7; }
+        .sync-local { background: rgba(245,158,11,0.2); color: #fbbf24; }
 
         /* Responsive */
         @media (max-width: 768px) {
@@ -513,9 +317,15 @@
             <div class="clock-display" id="realtime-clock">
                 <span class="loading"></span> Memuat waktu...
             </div>
+            <div>
+                <div class="server-status" id="server-status">
+                    <span class="status-dot checking" id="status-dot"></span>
+                    <span id="status-text">Memeriksa koneksi server...</span>
+                </div>
+            </div>
         </div>
 
-        <!-- Navigation Tabs -->
+        <!-- Nav Tabs -->
         <div class="nav-tabs">
             <button class="nav-tab active" onclick="switchTab('dashboard', this)">📊 Dashboard</button>
             <button class="nav-tab" onclick="switchTab('rekap', this)">📈 Rekapitulasi</button>
@@ -526,7 +336,6 @@
         <div id="section-dashboard" class="content-section active">
             <div class="glass-card">
                 <div class="card-title">📊 Dashboard Kehadiran</div>
-                
                 <div class="filter-controls">
                     <select id="filter-period" onchange="updateDashboard()">
                         <option value="today">Hari Ini</option>
@@ -534,62 +343,31 @@
                         <option value="month" selected>Bulan Ini</option>
                     </select>
                     <select id="filter-month" onchange="updateDashboard()">
-                        <option value="1">Januari</option>
-                        <option value="2">Februari</option>
-                        <option value="3">Maret</option>
-                        <option value="4">April</option>
-                        <option value="5">Mei</option>
-                        <option value="6">Juni</option>
-                        <option value="7">Juli</option>
-                        <option value="8">Agustus</option>
-                        <option value="9">September</option>
-                        <option value="10">Oktober</option>
-                        <option value="11">November</option>
-                        <option value="12">Desember</option>
+                        <option value="1">Januari</option><option value="2">Februari</option>
+                        <option value="3">Maret</option><option value="4">April</option>
+                        <option value="5">Mei</option><option value="6">Juni</option>
+                        <option value="7">Juli</option><option value="8">Agustus</option>
+                        <option value="9">September</option><option value="10">Oktober</option>
+                        <option value="11">November</option><option value="12">Desember</option>
                     </select>
                 </div>
 
-                <div id="dashboard-loading" style="text-align:center; padding:20px;" class="hidden">
+                <div id="dashboard-loading" style="text-align:center;padding:20px;" class="hidden">
                     <span class="loading"></span> Memuat data dari server...
                 </div>
 
+                <div id="dashboard-source" style="margin-bottom:16px;"></div>
+
                 <div class="stats-grid" id="stats-grid">
-                    <div class="stat-card">
-                        <div class="stat-icon">✅</div>
-                        <div class="stat-value" id="stat-hadir">0</div>
-                        <div class="stat-label">Hadir</div>
-                        <div class="stat-percentage" id="stat-hadir-pct">0%</div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-icon">🤒</div>
-                        <div class="stat-value" id="stat-sakit">0</div>
-                        <div class="stat-label">Sakit</div>
-                        <div class="stat-percentage" id="stat-sakit-pct">0%</div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-icon">📄</div>
-                        <div class="stat-value" id="stat-ijin">0</div>
-                        <div class="stat-label">Ijin</div>
-                        <div class="stat-percentage" id="stat-ijin-pct">0%</div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-icon">❌</div>
-                        <div class="stat-value" id="stat-alpha">0</div>
-                        <div class="stat-label">Tanpa Keterangan</div>
-                        <div class="stat-percentage" id="stat-alpha-pct">0%</div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-icon">🏖️</div>
-                        <div class="stat-value" id="stat-libur">0</div>
-                        <div class="stat-label">Libur</div>
-                        <div class="stat-percentage" id="stat-libur-pct">0%</div>
-                    </div>
+                    <div class="stat-card"><div class="stat-icon">✅</div><div class="stat-value" id="stat-hadir">0</div><div class="stat-label">Hadir</div><div class="stat-percentage" id="stat-hadir-pct">0%</div></div>
+                    <div class="stat-card"><div class="stat-icon">🤒</div><div class="stat-value" id="stat-sakit">0</div><div class="stat-label">Sakit</div><div class="stat-percentage" id="stat-sakit-pct">0%</div></div>
+                    <div class="stat-card"><div class="stat-icon">📄</div><div class="stat-value" id="stat-ijin">0</div><div class="stat-label">Ijin</div><div class="stat-percentage" id="stat-ijin-pct">0%</div></div>
+                    <div class="stat-card"><div class="stat-icon">❌</div><div class="stat-value" id="stat-alpha">0</div><div class="stat-label">Tanpa Keterangan</div><div class="stat-percentage" id="stat-alpha-pct">0%</div></div>
+                    <div class="stat-card"><div class="stat-icon">🏖️</div><div class="stat-value" id="stat-libur">0</div><div class="stat-label">Libur</div><div class="stat-percentage" id="stat-libur-pct">0%</div></div>
                 </div>
 
                 <div id="dashboard-error" class="hidden">
-                    <div class="alert alert-error">
-                        ⚠️ Gagal memuat data dari server. Menampilkan data lokal (cache).
-                    </div>
+                    <div class="alert alert-error">⚠️ Gagal memuat data dari server. Menampilkan data lokal (cache).</div>
                 </div>
             </div>
         </div>
@@ -598,7 +376,6 @@
         <div id="section-rekap" class="content-section">
             <div class="glass-card">
                 <div class="card-title">📈 Rekapitulasi Kehadiran</div>
-                
                 <div class="filter-controls">
                     <select id="rekap-period" onchange="updateRekap()">
                         <option value="month">Bulanan</option>
@@ -609,42 +386,26 @@
                         <option value="all">Semua Guru</option>
                     </select>
                 </div>
-
-                <div id="rekap-loading" style="text-align:center; padding:20px;" class="hidden">
+                <div id="rekap-loading" style="text-align:center;padding:20px;" class="hidden">
                     <span class="loading"></span> Memuat data...
                 </div>
-
+                <div id="rekap-source" style="margin-bottom:16px;"></div>
                 <div class="table-container">
                     <table id="rekap-table">
-                        <thead>
-                            <tr>
-                                <th>No</th>
-                                <th>Nama Guru</th>
-                                <th>Hadir</th>
-                                <th>Sakit</th>
-                                <th>Ijin</th>
-                                <th>Alpha</th>
-                                <th>Libur</th>
-                                <th>Total</th>
-                                <th>% Hadir</th>
-                            </tr>
-                        </thead>
-                        <tbody id="rekap-tbody">
-                        </tbody>
+                        <thead><tr><th>No</th><th>Nama Guru</th><th>Hadir</th><th>Sakit</th><th>Ijin</th><th>Alpha</th><th>Libur</th><th>Total</th><th>% Hadir</th></tr></thead>
+                        <tbody id="rekap-tbody"></tbody>
                     </table>
                 </div>
             </div>
         </div>
 
-        <!-- ==================== MONITORING ==================== -->
+        <!-- ==================== MONITORING (Input Kehadiran) ==================== -->
         <div id="section-monitoring" class="content-section">
-            <!-- Login Form -->
-            <div id="login-section" class="glass-card" style="max-width: 500px; margin: 0 auto;">
+            <!-- Login -->
+            <div id="login-section" class="glass-card" style="max-width:500px;margin:0 auto;">
                 <div class="card-title">🔐 Login Petugas Monitoring</div>
-                <div style="background: rgba(255, 255, 255, 0.1); padding: 16px; border-radius: 12px; margin-bottom: 20px; border-left: 4px solid var(--info);">
-                    <p style="margin: 0; opacity: 0.9; font-size: 0.95rem;">
-                        ℹ️ Halaman ini khusus untuk <strong>Petugas Monitoring</strong> yang bertugas menginput kehadiran guru.
-                    </p>
+                <div style="background:rgba(255,255,255,0.1);padding:16px;border-radius:12px;margin-bottom:20px;border-left:4px solid var(--info);">
+                    <p style="margin:0;opacity:0.9;font-size:0.95rem;">ℹ️ Halaman ini khusus untuk <strong>Petugas Monitoring</strong> yang bertugas menginput kehadiran guru.</p>
                 </div>
                 <div id="login-alert"></div>
                 <form onsubmit="handleLogin(event)">
@@ -656,17 +417,16 @@
                 </form>
             </div>
 
-            <!-- Monitoring Content (after login) -->
+            <!-- Monitoring Content -->
             <div id="monitoring-section" class="hidden">
 
-                <!-- HOLIDAY PANEL -->
+                <!-- Holiday Panel -->
                 <div class="holiday-panel" id="holiday-panel">
                     <div class="card-title">🏖️ Tandai Hari Libur</div>
-                    <p style="opacity: 0.85; margin-bottom: 20px; line-height: 1.6;">
+                    <p style="opacity:0.85;margin-bottom:20px;line-height:1.6;">
                         Jika hari ini atau tanggal tertentu adalah hari libur, tandai di sini.
-                        <strong>Semua jadwal pelajaran pada tanggal tersebut akan otomatis diberi status "Libur"</strong> — tidak perlu mengabsensi guru satu per satu.
+                        <strong>Semua jadwal pelajaran pada tanggal tersebut akan otomatis diberi status "Libur"</strong> dan tersimpan ke Google Sheets.
                     </p>
-
                     <div class="holiday-form-row">
                         <div class="form-group">
                             <label class="form-label">📅 Tanggal Libur</label>
@@ -674,826 +434,866 @@
                         </div>
                         <div class="form-group">
                             <label class="form-label">📝 Keterangan Libur</label>
-                            <input type="text" class="form-input" id="holiday-reason" placeholder="Contoh: Hari Raya Idul Fitri, HUT RI, dll">
+                            <input type="text" class="form-input" id="holiday-reason" placeholder="Contoh: Hari Raya Idul Fitri, HUT RI">
                         </div>
-                        <div class="form-group" style="flex: 0 0 auto;">
-                            <button class="btn btn-holiday btn-lg" onclick="confirmHoliday()" id="btn-holiday">
-                                🏖️ Tandai Libur
-                            </button>
+                        <div class="form-group" style="flex:0 0 auto;">
+                            <button class="btn btn-holiday btn-lg" onclick="confirmHoliday()" id="btn-holiday">🏖️ Tandai Libur</button>
                         </div>
                     </div>
-
                     <div class="holiday-info-box">
-                        💡 <strong>Cara kerja:</strong> Sistem akan mengirim status "Libur" + keterangan untuk <em>setiap jadwal pelajaran</em> pada hari yang dipilih ke Google Sheets secara otomatis. Data ini juga akan tampil di Dashboard dan Rekapitulasi.
+                        💡 <strong>Cara kerja:</strong> Sistem akan mengirim status "Libur" untuk setiap jadwal pelajaran pada hari yang dipilih ke Google Sheets. Data libur juga disimpan di sheet terpisah <em>"Hari_Libur"</em> agar mudah dikelola. Saat membuka halaman input, sistem otomatis mengecek apakah hari ini libur.
                     </div>
-
                     <div id="holiday-log" class="holiday-log"></div>
                 </div>
 
-                <!-- HOLIDAY BANNER (shown when today is holiday) -->
-                <div id="holiday-banner" class="hidden" style="margin-bottom: 24px;">
-                    <div class="alert alert-holiday" style="font-size: 1.1rem; justify-content: center;">
+                <!-- Holiday Banner -->
+                <div id="holiday-banner" class="hidden" style="margin-bottom:24px;">
+                    <div class="alert alert-holiday" style="font-size:1.1rem;justify-content:center;">
                         <span class="holiday-badge-large">🏖️ Hari Ini Libur</span>
-                        <span id="holiday-banner-reason" style="margin-left: 12px;"></span>
+                        <span id="holiday-banner-reason" style="margin-left:12px;"></span>
                     </div>
                 </div>
 
-                <!-- Main Attendance Input -->
+                <!-- Saved attendance summary -->
+                <div id="saved-summary" class="saved-list-panel hidden">
+                    <div class="card-title">✅ Sudah Diinput Hari Ini</div>
+                    <p style="margin-bottom:12px;">
+                        <span class="saved-count" id="saved-count">0</span>
+                        <span style="opacity:0.8;"> dari </span>
+                        <span class="saved-count" id="total-schedule-count" style="color:white;">0</span>
+                        <span style="opacity:0.8;"> jadwal sudah diinput</span>
+                    </p>
+                    <div class="progress-bar-container">
+                        <div class="progress-bar" id="saved-progress" style="background:linear-gradient(90deg,#10b981,#059669);"></div>
+                    </div>
+                </div>
+
+                <!-- Attendance Input -->
                 <div class="glass-card">
                     <div class="card-title">
                         📝 Input Kehadiran Hari Ini
-                        <button onclick="handleLogout()" class="btn btn-danger btn-sm" style="margin-left: auto; padding: 8px 16px;">
-                            🚪 Logout
+                        <button onclick="refreshTodayData()" class="btn btn-ghost btn-sm" style="margin-left:auto;" title="Refresh data dari server">
+                            🔄 Refresh
                         </button>
+                        <button onclick="handleLogout()" class="btn btn-danger btn-sm" style="padding:8px 16px;">🚪 Logout</button>
                     </div>
-                    
                     <div id="monitoring-alert"></div>
-                    
+                    <div id="schedule-loading" style="text-align:center;padding:20px;" class="hidden">
+                        <span class="loading"></span> Memuat jadwal dan data kehadiran dari server...
+                    </div>
                     <div id="schedule-today" class="schedule-grid"></div>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Confirmation Modal -->
+    <!-- Holiday Confirmation Modal -->
     <div id="holiday-modal" class="modal-overlay hidden">
         <div class="modal-content">
             <div class="modal-title">🏖️ Konfirmasi Hari Libur</div>
             <div class="modal-body" id="modal-body-text"></div>
             <div id="modal-progress" class="hidden">
-                <div class="progress-bar-container">
-                    <div class="progress-bar" id="progress-bar"></div>
-                </div>
+                <div class="progress-bar-container"><div class="progress-bar" id="progress-bar"></div></div>
                 <div class="progress-text" id="progress-text">Memproses...</div>
             </div>
             <div class="modal-actions" id="modal-actions">
                 <button class="btn btn-ghost" onclick="closeHolidayModal()">Batal</button>
-                <button class="btn btn-holiday" id="btn-confirm-holiday" onclick="executeHoliday()">✅ Ya, Tandai Libur</button>
+                <button class="btn btn-holiday" onclick="executeHoliday()">✅ Ya, Tandai Libur</button>
             </div>
         </div>
     </div>
 
+    <!-- Database Jadwal Lengkap (inline) -->
     <script src="database-jadwal-lengkap.js"></script>
+
     <script>
-        // ============================================================
-        // CONFIGURATION
-        // ============================================================
-        const CONFIG = {
-            PASSWORD: 'SMKBisaHebat',
-            SCRIPT_URL: 'https://script.google.com/macros/s/AKfycbz0IL_DekD9udEpxDeGpx18jmpzpH2vge8S8Bn_Pv7WVRFkqk_V_LfPTTky6edylyXR/exec'
-        };
+    // ============================================================
+    // CONFIGURATION
+    // ============================================================
+    const CONFIG = {
+        PASSWORD: 'SMKBisaHebat',
+        SCRIPT_URL: 'https://script.google.com/macros/s/AKfycbz0IL_DekD9udEpxDeGpx18jmpzpH2vge8S8Bn_Pv7WVRFkqk_V_LfPTTky6edylyXR/exec'
+    };
 
-        // ============================================================
-        // LOCAL STORAGE KEYS (untuk cache & data lokal)
-        // ============================================================
-        const STORAGE_KEYS = {
-            ATTENDANCE: 'smk_attendance_data',
-            HOLIDAYS: 'smk_holidays'
-        };
+    const STORAGE_KEYS = {
+        ATTENDANCE: 'smk_attendance_data',
+        HOLIDAYS: 'smk_holidays',
+        SERVER_CACHE: 'smk_server_cache'
+    };
 
-        // ============================================================
-        // DAFTAR GURU
-        // ============================================================
-        const teachersList = [
-            "A. Bahy, S.Pd., M.Pd","A. Leuwol, S.Pd","A.W.J. Soplantila, S.Tr.Par",
-            "Abdul Manan Payapo, S.T","Allcresdo Latumeirissa, S.Pd","Allen Matinahoruw",
-            "Axl Denis Hallatu, S.Kom","B.W. Tanamal, S.Pd","Boki Tuasikal, S.Pd",
-            "Budiarto Tahidi, S.PdI","Ch. Elias, S.Pd., M.Pd","D. Simaela, S.Pd",
-            "Dahasian, S.Pd.Gr","Dani Iswanti, S.Sos","Daud Ali Pakan, S.Pd",
-            "Diwanti Wally, A.Md","Djumiaty","Djumiaty, S.PdI",
-            "E. Tamaela, A.Md","E.A. Wacanno, S.Pd","F.L. Pelltimu, S.Th",
-            "FL. Pelletimu, S.Th","Gloria S. Pattiradjawane, S.Tr.TI",
-            "Gloria Stevana Pattiradjawane, S.Tr.TI","H. Salampessy, SE",
-            "H.S. Kapressy, S.Pd., M.Pd","J. Resiloy","Kalsum Mony, S.Pd",
-            "Latumeirissa Allcresdo, S.Pd","Latumeirissa Allcresdo",
-            "Lukas M. Wacanno, S.Pd","M. Kunu, S.Pd","M. Matinaheruw",
-            "M. Siwabessy, S.Tr.Par","Mani Jamaludin, S.Kom","Marwana Dahasian, S.Pd.Gr",
-            "N. Ch. Elias, S.Pd., M.Pd","Netri Wailaruno, S.Pd","Nurdin, SST",
-            "O.A. Lawalata, S.Pd","Papuangan Syamsudin, A.Md","R. A. Ririhena, SM.Gr",
-            "R. E. Ruhukail, S.Pd., M.Pd","R. Lewenussa, S.Pd","R.Y. Ririhena, S.Pd.Kom",
-            "S. Pattiradjawane","S. Singadji, S.Kom","Semby Singadji, S.Kom",
-            "Suharja Duhalim, S.Pd","T.M.A. Kappuw, S.Pd","T.S. Polnaya, S.Th",
-            "V. Ruhukail, S.Pd","Wa Mulina, S.Pd","Yulan Talarima, S.Pd.,Gr"
-        ];
+    // ============================================================
+    // DAFTAR GURU
+    // ============================================================
+    const teachersList = [
+        "A. Bahy, S.Pd., M.Pd","A. Leuwol, S.Pd","A.W.J. Soplantila, S.Tr.Par",
+        "Abdul Manan Payapo, S.T","Allcresdo Latumeirissa, S.Pd","Allen Matinahoruw",
+        "Axl Denis Hallatu, S.Kom","B.W. Tanamal, S.Pd","Boki Tuasikal, S.Pd",
+        "Budiarto Tahidi, S.PdI","Ch. Elias, S.Pd., M.Pd","D. Simaela, S.Pd",
+        "Dahasian, S.Pd.Gr","Dani Iswanti, S.Sos","Daud Ali Pakan, S.Pd",
+        "Diwanti Wally, A.Md","Djumiaty","Djumiaty, S.PdI",
+        "E. Tamaela, A.Md","E.A. Wacanno, S.Pd","F.L. Pelltimu, S.Th",
+        "FL. Pelletimu, S.Th","Gloria S. Pattiradjawane, S.Tr.TI",
+        "Gloria Stevana Pattiradjawane, S.Tr.TI","H. Salampessy, SE",
+        "H.S. Kapressy, S.Pd., M.Pd","J. Resiloy","Kalsum Mony, S.Pd",
+        "Latumeirissa Allcresdo, S.Pd","Latumeirissa Allcresdo",
+        "Lukas M. Wacanno, S.Pd","M. Kunu, S.Pd","M. Matinaheruw",
+        "M. Siwabessy, S.Tr.Par","Mani Jamaludin, S.Kom","Marwana Dahasian, S.Pd.Gr",
+        "N. Ch. Elias, S.Pd., M.Pd","Netri Wailaruno, S.Pd","Nurdin, SST",
+        "O.A. Lawalata, S.Pd","Papuangan Syamsudin, A.Md","R. A. Ririhena, SM.Gr",
+        "R. E. Ruhukail, S.Pd., M.Pd","R. Lewenussa, S.Pd","R.Y. Ririhena, S.Pd.Kom",
+        "S. Pattiradjawane","S. Singadji, S.Kom","Semby Singadji, S.Kom",
+        "Suharja Duhalim, S.Pd","T.M.A. Kappuw, S.Pd","T.S. Polnaya, S.Th",
+        "V. Ruhukail, S.Pd","Wa Mulina, S.Pd","Yulan Talarima, S.Pd.,Gr"
+    ];
 
-        // ============================================================
-        // STATE
-        // ============================================================
-        let isLoggedIn = false;
-        let currentDate = new Date();
-        let holidayPending = null;
+    // ============================================================
+    // STATE
+    // ============================================================
+    let isLoggedIn = false;
+    let currentDate = new Date();
+    let holidayPending = null;
+    let todaySavedAttendance = {};  // key: "kelas|jam|guru" → record
+    let todayIsHoliday = null;      // null or { keterangan: "..." }
+    let serverOnline = null;        // null=unknown, true, false
 
-        // ============================================================
-        // LOCAL STORAGE HELPERS
-        // ============================================================
-        function getLocalData(key) {
-            try {
-                const raw = localStorage.getItem(key);
-                return raw ? JSON.parse(raw) : [];
-            } catch(e) {
-                return [];
-            }
-        }
-
-        function saveLocalData(key, data) {
-            try {
-                localStorage.setItem(key, JSON.stringify(data));
-            } catch(e) {
-                console.warn('LocalStorage save failed:', e);
-            }
-        }
-
-        function addLocalAttendance(record) {
-            const data = getLocalData(STORAGE_KEYS.ATTENDANCE);
-            data.push(record);
-            saveLocalData(STORAGE_KEYS.ATTENDANCE, data);
-        }
-
-        function getLocalHolidays() {
-            return getLocalData(STORAGE_KEYS.HOLIDAYS);
-        }
-
-        function addLocalHoliday(dateStr, reason, count) {
-            const holidays = getLocalHolidays();
-            holidays.push({ date: dateStr, reason: reason, count: count, timestamp: new Date().toISOString() });
+    // ============================================================
+    // LOCAL STORAGE
+    // ============================================================
+    function getLocalData(key) {
+        try { const r = localStorage.getItem(key); return r ? JSON.parse(r) : []; } catch(e) { return []; }
+    }
+    function saveLocalData(key, data) {
+        try { localStorage.setItem(key, JSON.stringify(data)); } catch(e) { console.warn('LocalStorage error:', e); }
+    }
+    function addLocalAttendance(record) {
+        const data = getLocalData(STORAGE_KEYS.ATTENDANCE);
+        // Upsert: replace if same key exists
+        const key = `${record.tanggal}|${record.kelas}|${record.jam}|${record.guru}`;
+        const idx = data.findIndex(r => `${r.tanggal}|${r.kelas}|${r.jam}|${r.guru}` === key);
+        if (idx >= 0) { data[idx] = record; } else { data.push(record); }
+        saveLocalData(STORAGE_KEYS.ATTENDANCE, data);
+    }
+    function getLocalHolidays() { return getLocalData(STORAGE_KEYS.HOLIDAYS); }
+    function addLocalHoliday(dateStr, reason, count) {
+        const holidays = getLocalHolidays();
+        if (!holidays.find(h => h.date === dateStr)) {
+            holidays.push({ date: dateStr, reason, count, timestamp: new Date().toISOString() });
             saveLocalData(STORAGE_KEYS.HOLIDAYS, holidays);
         }
+    }
+    function isDateLocalHoliday(dateStr) {
+        return getLocalHolidays().find(h => h.date === dateStr);
+    }
 
-        function isDateLocalHoliday(dateStr) {
-            const holidays = getLocalHolidays();
-            return holidays.find(h => h.date === dateStr);
-        }
+    // ============================================================
+    // UTILITY
+    // ============================================================
+    function formatDay(dayCode) {
+        const d = { "Sen":"Senin","Sel":"Selasa","Rab":"Rabu","Kam":"Kamis","Jum":"Jumat","Sab":"Sabtu","Minggu":"Minggu" };
+        return d[dayCode] || dayCode;
+    }
+    function getDayCode(dayIndex) { return ["Minggu","Sen","Sel","Rab","Kam","Jum","Sab"][dayIndex]; }
+    function formatDateIndonesia(dateStr) {
+        const d = new Date(dateStr + 'T00:00:00');
+        const months = ['Januari','Februari','Maret','April','Mei','Juni','Juli','Agustus','September','Oktober','November','Desember'];
+        const days = ['Minggu','Senin','Selasa','Rabu','Kamis','Jumat','Sabtu'];
+        return `${days[d.getDay()]}, ${d.getDate()} ${months[d.getMonth()]} ${d.getFullYear()}`;
+    }
+    function getTodayStr() {
+        const n = new Date();
+        return n.getFullYear() + '-' + String(n.getMonth()+1).padStart(2,'0') + '-' + String(n.getDate()).padStart(2,'0');
+    }
+    function makeKey(kelas, jam, guru) { return `${kelas}|${jam}|${guru}`; }
+    function escapeStr(str) { return str.replace(/'/g, "\\'").replace(/"/g, '\\"'); }
 
-        // ============================================================
-        // UTILITY FUNCTIONS
-        // ============================================================
-        function formatDay(dayCode) {
-            const days = { "Sen":"Senin","Sel":"Selasa","Rab":"Rabu","Kam":"Kamis","Jum":"Jumat","Sab":"Sabtu","Minggu":"Minggu" };
-            return days[dayCode] || dayCode;
-        }
+    function updateClock() {
+        const n = new Date();
+        const dc = getDayCode(n.getDay());
+        const t = n.toTimeString().slice(0,8);
+        document.getElementById('realtime-clock').innerHTML =
+            `<span style="font-size:0.8em;opacity:0.8;">${formatDay(dc)}</span> ${t} <span style="font-size:0.8em;opacity:0.8;">WIT</span>`;
+    }
 
-        function getDayCode(dayIndex) {
-            return ["Minggu","Sen","Sel","Rab","Kam","Jum","Sab"][dayIndex];
-        }
+    // ============================================================
+    // SERVER COMMUNICATION
+    // ============================================================
+    function setServerStatus(status, text) {
+        const dot = document.getElementById('status-dot');
+        const txt = document.getElementById('status-text');
+        dot.className = 'status-dot ' + status;
+        txt.textContent = text;
+        serverOnline = status === 'online';
+    }
 
-        function formatDateIndonesia(dateStr) {
-            const d = new Date(dateStr + 'T00:00:00');
-            const months = ['Januari','Februari','Maret','April','Mei','Juni','Juli','Agustus','September','Oktober','November','Desember'];
-            const days = ['Minggu','Senin','Selasa','Rabu','Kamis','Jumat','Sabtu'];
-            return `${days[d.getDay()]}, ${d.getDate()} ${months[d.getMonth()]} ${d.getFullYear()}`;
-        }
-
-        function getTodayStr() {
-            const now = new Date();
-            return now.getFullYear() + '-' + String(now.getMonth()+1).padStart(2,'0') + '-' + String(now.getDate()).padStart(2,'0');
-        }
-
-        function updateClock() {
-            const now = new Date();
-            const dayCode = getDayCode(now.getDay());
-            const t = now.getHours().toString().padStart(2,'0') + ":" + 
-                      now.getMinutes().toString().padStart(2,'0') + ":" + 
-                      now.getSeconds().toString().padStart(2,'0');
-            document.getElementById('realtime-clock').innerHTML = 
-                `<span style="font-size:0.8em;opacity:0.8;">${formatDay(dayCode)}</span> ${t} <span style="font-size:0.8em;opacity:0.8;">WIT</span>`;
-        }
-
-        function escapeStr(str) {
-            return str.replace(/'/g, "\\'").replace(/"/g, '\\"');
-        }
-
-        // ============================================================
-        // SEND DATA TO GOOGLE SHEETS
-        // Menggunakan fetch + mode no-cors (POST)
-        // Untuk GET (ambil data) menggunakan redirect follow
-        // ============================================================
-
-        /**
-         * Kirim data kehadiran ke Google Sheets
-         * Mengembalikan true jika request terkirim (no-cors tidak bisa verifikasi response)
-         */
-        async function sendToSheets(record) {
-            try {
-                await fetch(CONFIG.SCRIPT_URL, {
-                    method: 'POST',
-                    mode: 'no-cors',
-                    headers: { 'Content-Type': 'text/plain' },
-                    body: JSON.stringify(record)
-                });
-                // no-cors selalu return opaque response, kita anggap berhasil
-                // dan simpan juga ke local sebagai cache
-                addLocalAttendance(record);
+    async function checkServerConnection() {
+        try {
+            const r = await fetch(CONFIG.SCRIPT_URL + '?action=check-holiday&tanggal=test', { method: 'GET', redirect: 'follow' });
+            if (r.ok) {
+                setServerStatus('online', 'Server terhubung');
                 return true;
-            } catch (error) {
-                console.error('Send to sheets error:', error);
-                // Tetap simpan ke local sebagai backup
-                addLocalAttendance(record);
-                return false;
             }
+        } catch(e) {}
+        setServerStatus('offline', 'Server tidak terhubung (mode offline)');
+        return false;
+    }
+
+    /**
+     * POST data ke Google Sheets — no-cors mode
+     * Juga simpan ke localStorage sebagai backup
+     */
+    async function sendToSheets(record) {
+        // Selalu simpan local dulu
+        addLocalAttendance(record);
+
+        try {
+            await fetch(CONFIG.SCRIPT_URL, {
+                method: 'POST', mode: 'no-cors',
+                headers: { 'Content-Type': 'text/plain' },
+                body: JSON.stringify(record)
+            });
+            return { success: true, source: 'server' };
+        } catch(e) {
+            console.error('sendToSheets error:', e);
+            return { success: false, source: 'local' };
         }
+    }
 
-        /**
-         * Ambil data dari Google Sheets via GET
-         * Fallback ke data lokal jika gagal
-         */
-        async function fetchFromSheets(params) {
-            const queryStr = new URLSearchParams(params).toString();
-            const url = CONFIG.SCRIPT_URL + '?' + queryStr;
-
-            try {
-                const response = await fetch(url, {
-                    method: 'GET',
-                    redirect: 'follow'
-                });
-
-                if (!response.ok) throw new Error('Response not ok: ' + response.status);
-
-                const data = await response.json();
-                return { success: true, data: data };
-            } catch (error) {
-                console.error('Fetch from sheets error:', error);
-                return { success: false, data: [] };
-            }
+    /**
+     * POST dengan action tertentu (untuk holiday save)
+     */
+    async function postAction(data) {
+        try {
+            await fetch(CONFIG.SCRIPT_URL, {
+                method: 'POST', mode: 'no-cors',
+                headers: { 'Content-Type': 'text/plain' },
+                body: JSON.stringify(data)
+            });
+            return true;
+        } catch(e) {
+            console.error('postAction error:', e);
+            return false;
         }
+    }
 
-        // ============================================================
-        // TAB MANAGEMENT
-        // ============================================================
-        function switchTab(tabName, btnElement) {
-            if (!isLoggedIn && tabName === 'monitoring') {
-                document.getElementById('login-section').classList.remove('hidden');
-                document.getElementById('monitoring-section').classList.add('hidden');
-            }
-
-            document.querySelectorAll('.content-section').forEach(s => s.classList.remove('active'));
-            document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
-
-            document.getElementById(`section-${tabName}`).classList.add('active');
-            if (btnElement) btnElement.classList.add('active');
-
-            if (tabName === 'monitoring' && isLoggedIn) {
-                loadTodaySchedule();
-                checkTodayHoliday();
-            } else if (tabName === 'dashboard') {
-                updateDashboard();
-            } else if (tabName === 'rekap') {
-                loadTeacherList();
-                updateRekap();
-            }
+    /**
+     * GET data dari Google Sheets
+     */
+    async function fetchFromSheets(params) {
+        const url = CONFIG.SCRIPT_URL + '?' + new URLSearchParams(params).toString();
+        try {
+            const r = await fetch(url, { method: 'GET', redirect: 'follow' });
+            if (!r.ok) throw new Error('HTTP ' + r.status);
+            const data = await r.json();
+            return { success: true, data };
+        } catch(e) {
+            console.error('fetchFromSheets error:', e);
+            return { success: false, data: null };
         }
+    }
 
-        // ============================================================
-        // LOGIN / LOGOUT
-        // ============================================================
-        function handleLogin(event) {
-            event.preventDefault();
-            const password = document.getElementById('password-input').value;
-            
-            if (password === CONFIG.PASSWORD) {
-                isLoggedIn = true;
-                document.getElementById('login-section').classList.add('hidden');
-                document.getElementById('monitoring-section').classList.remove('hidden');
-                showAlert('monitoring', 'success', '✅ Login berhasil! Selamat datang, Petugas Monitoring.');
-                loadTodaySchedule();
-                setHolidayDateDefault();
-                checkTodayHoliday();
-                document.getElementById('password-input').value = '';
-            } else {
-                showAlert('login', 'error', '❌ Password salah! Silakan coba lagi.');
-            }
-        }
-
-        function handleLogout() {
-            isLoggedIn = false;
+    // ============================================================
+    // TAB MANAGEMENT
+    // ============================================================
+    function switchTab(tabName, btn) {
+        if (!isLoggedIn && tabName === 'monitoring') {
             document.getElementById('login-section').classList.remove('hidden');
             document.getElementById('monitoring-section').classList.add('hidden');
-            document.getElementById('password-input').value = '';
-            showAlert('login', 'success', '✅ Anda telah logout.');
         }
 
-        function showAlert(section, type, message) {
-            const alertDiv = document.getElementById(`${section}-alert`);
-            if (!alertDiv) return;
-            const cls = type === 'error' ? 'alert-error' : 'alert-success';
-            alertDiv.innerHTML = `<div class="alert ${cls}">${message}</div>`;
-            setTimeout(() => { alertDiv.innerHTML = ''; }, 6000);
-        }
+        document.querySelectorAll('.content-section').forEach(s => s.classList.remove('active'));
+        document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+        document.getElementById(`section-${tabName}`).classList.add('active');
+        if (btn) btn.classList.add('active');
 
-        // ============================================================
-        // HOLIDAY DATE DEFAULT & CHECK
-        // ============================================================
-        function setHolidayDateDefault() {
+        if (tabName === 'monitoring' && isLoggedIn) {
+            loadTodayScheduleWithSync();
+        } else if (tabName === 'dashboard') {
+            updateDashboard();
+        } else if (tabName === 'rekap') {
+            loadTeacherList();
+            updateRekap();
+        }
+    }
+
+    // ============================================================
+    // LOGIN / LOGOUT
+    // ============================================================
+    function handleLogin(event) {
+        event.preventDefault();
+        const pw = document.getElementById('password-input').value;
+        if (pw === CONFIG.PASSWORD) {
+            isLoggedIn = true;
+            document.getElementById('login-section').classList.add('hidden');
+            document.getElementById('monitoring-section').classList.remove('hidden');
+            showAlert('monitoring', 'success', '✅ Login berhasil! Selamat datang, Petugas Monitoring.');
             document.getElementById('holiday-date').value = getTodayStr();
+            loadTodayScheduleWithSync();
+            document.getElementById('password-input').value = '';
+        } else {
+            showAlert('login', 'error', '❌ Password salah! Silakan coba lagi.');
+        }
+    }
+
+    function handleLogout() {
+        isLoggedIn = false;
+        document.getElementById('login-section').classList.remove('hidden');
+        document.getElementById('monitoring-section').classList.add('hidden');
+        document.getElementById('password-input').value = '';
+        showAlert('login', 'success', '✅ Anda telah logout.');
+    }
+
+    function showAlert(section, type, message) {
+        const el = document.getElementById(`${section}-alert`);
+        if (!el) return;
+        const cls = type === 'error' ? 'alert-error' : type === 'info' ? 'alert-info' : 'alert-success';
+        el.innerHTML = `<div class="alert ${cls}">${message}</div>`;
+        setTimeout(() => { el.innerHTML = ''; }, 6000);
+    }
+
+    // ============================================================
+    // LOAD TODAY'S SCHEDULE + SYNC SAVED DATA FROM SERVER
+    // Ini adalah fungsi utama yang menggabungkan:
+    // 1. Jadwal hari ini dari database lokal
+    // 2. Data kehadiran yang sudah diinput (dari server/local)
+    // 3. Status hari libur (dari server/local)
+    // ============================================================
+    async function loadTodayScheduleWithSync() {
+        const container = document.getElementById('schedule-today');
+        const loadingEl = document.getElementById('schedule-loading');
+        loadingEl.classList.remove('hidden');
+        container.innerHTML = '';
+
+        const todayStr = getTodayStr();
+        const now = new Date();
+        const dayCode = getDayCode(now.getDay());
+
+        // 1. Ambil jadwal hari ini dari database
+        const todaySchedule = database.filter(item => item.hri === dayCode && item.type !== 'break');
+
+        if (todaySchedule.length === 0) {
+            loadingEl.classList.add('hidden');
+            container.innerHTML = `
+                <div style="text-align:center;padding:40px;opacity:0.8;">
+                    <div style="font-size:3rem;margin-bottom:16px;">📅</div>
+                    <div style="font-size:1.2rem;">Tidak ada jadwal untuk hari ini (${formatDay(dayCode)})</div>
+                </div>`;
+            document.getElementById('saved-summary').classList.add('hidden');
+            return;
         }
 
-        function checkTodayHoliday() {
-            const todayStr = getTodayStr();
-            const localHoliday = isDateLocalHoliday(todayStr);
-            if (localHoliday) {
-                showHolidayBanner(localHoliday.reason);
-                markAllScheduleAsHoliday(localHoliday.reason);
-            }
+        // 2. Cek apakah hari ini libur (dari server lalu local)
+        todayIsHoliday = null;
+        const holidayCheck = await fetchFromSheets({ action: 'check-holiday', tanggal: todayStr });
+        if (holidayCheck.success && holidayCheck.data && holidayCheck.data.isHoliday) {
+            todayIsHoliday = { keterangan: holidayCheck.data.keterangan };
+        } else {
+            // Fallback: cek local
+            const localH = isDateLocalHoliday(todayStr);
+            if (localH) todayIsHoliday = { keterangan: localH.reason };
         }
 
-        // ============================================================
-        // HOLIDAY FEATURE
-        // ============================================================
-        function getScheduleForDate(dateStr) {
-            const d = new Date(dateStr + 'T00:00:00');
-            const dayCode = getDayCode(d.getDay());
-            return database.filter(item => item.hri === dayCode && item.type !== 'break');
+        if (todayIsHoliday) {
+            showHolidayBanner(todayIsHoliday.keterangan);
+        } else {
+            document.getElementById('holiday-banner').classList.add('hidden');
         }
 
-        function confirmHoliday() {
-            const dateStr = document.getElementById('holiday-date').value;
-            const reason = document.getElementById('holiday-reason').value.trim();
-
-            if (!dateStr) {
-                showAlert('monitoring', 'error', '❌ Silakan pilih tanggal libur terlebih dahulu.');
-                return;
-            }
-            if (!reason) {
-                showAlert('monitoring', 'error', '❌ Silakan isi keterangan libur (contoh: Hari Raya Idul Fitri).');
-                return;
-            }
-
-            // Cek apakah sudah pernah ditandai libur
-            const existing = isDateLocalHoliday(dateStr);
-            if (existing) {
-                showAlert('monitoring', 'error', `⚠️ Tanggal ${formatDateIndonesia(dateStr)} sudah pernah ditandai libur: "${existing.reason}". Tidak perlu ditandai ulang.`);
-                return;
-            }
-
-            const schedules = getScheduleForDate(dateStr);
-
-            if (schedules.length === 0) {
-                showAlert('monitoring', 'error', `❌ Tidak ada jadwal pelajaran pada ${formatDateIndonesia(dateStr)}. Mungkin hari tersebut memang hari Minggu atau tidak ada jadwal.`);
-                return;
-            }
-
-            const uniqueClasses = [...new Set(schedules.map(s => s.kls))];
-            const uniqueTeachers = [...new Set(schedules.map(s => s.guru))];
-
-            holidayPending = { dateStr, reason, schedules, uniqueClasses, uniqueTeachers };
-
-            // Show modal
-            document.getElementById('modal-body-text').innerHTML = `
-                <p>Anda akan menandai <strong>${formatDateIndonesia(dateStr)}</strong> sebagai hari libur:</p>
-                <p style="margin:12px 0;padding:12px 16px;background:rgba(255,255,255,0.1);border-radius:10px;font-style:italic;">
-                    "${reason}"
-                </p>
-                <p>Akan mengirimkan status <strong style="color:#e879f9;">"Libur"</strong> untuk:</p>
-                <p style="margin-top:8px;">
-                    📚 <strong>${schedules.length}</strong> jadwal pelajaran<br>
-                    🏫 <strong>${uniqueClasses.length}</strong> kelas<br>
-                    👤 <strong>${uniqueTeachers.length}</strong> guru
-                </p>
-            `;
-
-            document.getElementById('modal-progress').classList.add('hidden');
-            document.getElementById('modal-actions').innerHTML = `
-                <button class="btn btn-ghost" onclick="closeHolidayModal()">Batal</button>
-                <button class="btn btn-holiday" id="btn-confirm-holiday" onclick="executeHoliday()">✅ Ya, Tandai Libur</button>
-            `;
-            document.getElementById('modal-actions').classList.remove('hidden');
-            document.getElementById('holiday-modal').classList.remove('hidden');
-        }
-
-        function closeHolidayModal() {
-            document.getElementById('holiday-modal').classList.add('hidden');
-            holidayPending = null;
-        }
-
-        async function executeHoliday() {
-            if (!holidayPending) return;
-
-            const { dateStr, reason, schedules } = holidayPending;
-            const d = new Date(dateStr + 'T00:00:00');
-            const dayCode = getDayCode(d.getDay());
-
-            // Hide actions, show progress
-            document.getElementById('modal-actions').classList.add('hidden');
-            document.getElementById('modal-progress').classList.remove('hidden');
-
-            const total = schedules.length;
-            let completed = 0;
-            let failed = 0;
-
-            const updateProgress = () => {
-                const pct = Math.round((completed / total) * 100);
-                document.getElementById('progress-bar').style.width = pct + '%';
-                document.getElementById('progress-text').textContent = `Memproses ${completed} dari ${total} jadwal... (${pct}%)`;
-            };
-
-            updateProgress();
-
-            // Kirim setiap jadwal sebagai "Libur"
-            for (const item of schedules) {
-                const record = {
-                    tanggal: dateStr,
-                    hari: formatDay(dayCode),
-                    jam: item.jam,
-                    kelas: item.kls,
-                    guru: item.guru,
-                    mapel: item.mapel,
-                    status: 'Libur',
-                    keterangan: reason,
-                    timestamp: new Date().toISOString()
-                };
-
-                const success = await sendToSheets(record);
-                completed++;
-                if (!success) failed++;
-                updateProgress();
-
-                // Delay agar tidak overload server
-                await new Promise(r => setTimeout(r, 200));
-            }
-
-            // Selesai
-            document.getElementById('progress-bar').style.width = '100%';
-            
-            if (failed === 0) {
-                document.getElementById('progress-text').innerHTML = `✅ Selesai! <strong>${total}</strong> jadwal berhasil ditandai libur dan dikirim ke Google Sheets.`;
-            } else {
-                document.getElementById('progress-text').innerHTML = `⚠️ Selesai! ${total - failed} terkirim, ${failed} gagal (tersimpan lokal).`;
-            }
-
-            // Simpan ke local holidays
-            addLocalHoliday(dateStr, reason, total);
-
-            // Show close button
-            document.getElementById('modal-actions').innerHTML = `
-                <button class="btn btn-holiday" onclick="closeHolidayModal()" style="width:100%;">✅ Selesai</button>
-            `;
-            document.getElementById('modal-actions').classList.remove('hidden');
-
-            // Add to holiday log
-            addHolidayLog(dateStr, reason, total, failed);
-
-            // Jika libur = hari ini, update tampilan
-            if (dateStr === getTodayStr()) {
-                showHolidayBanner(reason);
-                markAllScheduleAsHoliday(reason);
-            }
-
-            showAlert('monitoring', 'success', 
-                `🏖️ Berhasil! ${total} jadwal pada ${formatDateIndonesia(dateStr)} telah ditandai sebagai LIBUR (${reason}).`);
-
-            holidayPending = null;
-        }
-
-        function addHolidayLog(dateStr, reason, total, failed) {
-            const logContainer = document.getElementById('holiday-log');
-            const timeStr = new Date().toLocaleTimeString('id-ID');
-            logContainer.insertAdjacentHTML('afterbegin', `
-                <div class="holiday-log-item">
-                    <span style="font-size:1.3rem;">🏖️</span>
-                    <span>
-                        <strong>${formatDateIndonesia(dateStr)}</strong> — ${reason} 
-                        (${total} jadwal${failed > 0 ? `, ${failed} gagal` : ' terkirim'})
-                    </span>
-                    <span class="log-time">${timeStr}</span>
-                </div>
-            `);
-        }
-
-        function showHolidayBanner(reason) {
-            const banner = document.getElementById('holiday-banner');
-            document.getElementById('holiday-banner-reason').textContent = `— ${reason}`;
-            banner.classList.remove('hidden');
-        }
-
-        function markAllScheduleAsHoliday(reason) {
-            const scheduleItems = document.querySelectorAll('.schedule-item');
-            scheduleItems.forEach(item => {
-                item.classList.add('holiday-marked');
-                item.querySelectorAll('.status-buttons button').forEach(btn => {
-                    btn.disabled = true;
-                    btn.style.opacity = '0.3';
-                });
-                const statusDivs = item.querySelectorAll('[id^="status-"]');
-                statusDivs.forEach(div => {
-                    div.innerHTML = `<div class="status-badge status-libur">🏖️ Status: Libur — ${reason}</div>`;
-                });
+        // 3. Ambil data kehadiran yang sudah diinput hari ini dari server
+        todaySavedAttendance = {};
+        const attendanceResult = await fetchFromSheets({ action: 'get-attendance-by-date', tanggal: todayStr });
+        
+        if (attendanceResult.success && attendanceResult.data && attendanceResult.data.data) {
+            attendanceResult.data.data.forEach(rec => {
+                const key = makeKey(rec.kelas, rec.jam, rec.guru);
+                todaySavedAttendance[key] = rec;
+            });
+        } else {
+            // Fallback: ambil dari local
+            const localAtt = getLocalData(STORAGE_KEYS.ATTENDANCE).filter(r => r.tanggal === todayStr);
+            localAtt.forEach(rec => {
+                const key = makeKey(rec.kelas, rec.jam, rec.guru);
+                todaySavedAttendance[key] = rec;
             });
         }
 
-        // ============================================================
-        // LOAD TODAY'S SCHEDULE
-        // ============================================================
-        function loadTodaySchedule() {
-            const now = new Date();
-            const dayCode = getDayCode(now.getDay());
-            
-            const todaySchedule = database.filter(item => item.hri === dayCode && item.type !== 'break');
-            const container = document.getElementById('schedule-today');
-            
-            if (todaySchedule.length === 0) {
-                container.innerHTML = `
-                    <div style="text-align:center;padding:40px;opacity:0.8;">
-                        <div style="font-size:3rem;margin-bottom:16px;">📅</div>
-                        <div style="font-size:1.2rem;">Tidak ada jadwal untuk hari ini (${formatDay(dayCode)})</div>
-                    </div>
-                `;
-                return;
+        // 4. Render jadwal
+        loadingEl.classList.add('hidden');
+        renderSchedule(todaySchedule, todayStr, dayCode);
+        updateSavedSummary(todaySchedule.length);
+
+        // 5. Load holiday log
+        loadHolidayLog();
+    }
+
+    function refreshTodayData() {
+        showAlert('monitoring', 'info', '🔄 Memuat ulang data dari server...');
+        loadTodayScheduleWithSync();
+    }
+
+    // ============================================================
+    // RENDER SCHEDULE — dengan status yang sudah tersimpan
+    // ============================================================
+    function renderSchedule(todaySchedule, todayStr, dayCode) {
+        const container = document.getElementById('schedule-today');
+
+        container.innerHTML = todaySchedule.map((item, index) => {
+            const key = makeKey(item.kls, item.jam, item.guru);
+            const saved = todaySavedAttendance[key];
+            const isHoliday = todayIsHoliday !== null;
+            const scheduleId = `${item.kls}-${item.jam}-${index}`.replace(/[^a-zA-Z0-9-]/g, '_');
+
+            let statusHtml = '';
+            let itemClass = 'schedule-item';
+            let btnDisabled = isHoliday ? 'disabled' : '';
+
+            if (isHoliday) {
+                // Hari libur — semua disabled dengan status libur
+                itemClass += ' holiday-marked';
+                statusHtml = `<div class="status-badge status-libur">🏖️ Libur — ${todayIsHoliday.keterangan}</div>`;
+            } else if (saved) {
+                // Sudah ada data tersimpan — tampilkan status
+                itemClass += ' already-marked';
+                const sClass = 'status-' + saved.status.toLowerCase();
+                const sIcon = saved.status === 'Hadir' ? '✅' : saved.status === 'Sakit' ? '🤒' : saved.status === 'Ijin' ? '📄' : '❌';
+                const source = saved.timestamp ? '(tersimpan)' : '';
+                statusHtml = `<div class="status-badge ${sClass}">${sIcon} ${saved.status} ${source}</div>
+                              <span class="sync-indicator sync-server" style="margin-left:8px;">📡 Dari server</span>`;
             }
 
-            container.innerHTML = todaySchedule.map((item, index) => {
-                const scheduleId = `${item.kls}-${item.jam}-${index}`.replace(/[^a-zA-Z0-9-]/g, '_');
-                return `
-                    <div class="schedule-item" id="schedule-${index}">
-                        <div class="schedule-header">
-                            <div class="schedule-info">
-                                <div class="class-badge">${item.kls}</div>
-                                <div class="schedule-time">⏰ ${item.jam} WIT</div>
-                                <div class="schedule-subject">📖 ${item.mapel}</div>
-                                <div class="schedule-teacher">👤 ${item.guru}</div>
-                            </div>
-                            <div class="status-buttons">
-                                <button class="btn btn-success btn-sm" onclick="markAttendance('${scheduleId}', '${escapeStr(item.guru)}', '${escapeStr(item.kls)}', '${escapeStr(item.mapel)}', '${item.jam}', 'Hadir', this)">
-                                    ✅ Hadir
-                                </button>
-                                <button class="btn btn-warning btn-sm" onclick="markAttendance('${scheduleId}', '${escapeStr(item.guru)}', '${escapeStr(item.kls)}', '${escapeStr(item.mapel)}', '${item.jam}', 'Sakit', this)">
-                                    🤒 Sakit
-                                </button>
-                                <button class="btn btn-info btn-sm" onclick="markAttendance('${scheduleId}', '${escapeStr(item.guru)}', '${escapeStr(item.kls)}', '${escapeStr(item.mapel)}', '${item.jam}', 'Ijin', this)">
-                                    📄 Ijin
-                                </button>
-                                <button class="btn btn-danger btn-sm" onclick="markAttendance('${scheduleId}', '${escapeStr(item.guru)}', '${escapeStr(item.kls)}', '${escapeStr(item.mapel)}', '${item.jam}', 'Alpha', this)">
-                                    ❌ Alpha
-                                </button>
-                            </div>
+            return `
+                <div class="${itemClass}" id="schedule-${index}">
+                    <div class="schedule-header">
+                        <div class="schedule-info">
+                            <div class="class-badge">${item.kls}</div>
+                            <div class="schedule-time">⏰ ${item.jam} WIT</div>
+                            <div class="schedule-subject">📖 ${item.mapel}</div>
+                            <div class="schedule-teacher">👤 ${item.guru}</div>
                         </div>
-                        <div id="status-${scheduleId}" style="margin-top:12px;"></div>
+                        <div class="status-buttons">
+                            <button class="btn btn-success btn-sm ${saved && saved.status==='Hadir' ? 'active-status' : ''}" ${btnDisabled}
+                                onclick="markAttendance('${scheduleId}', '${escapeStr(item.guru)}', '${escapeStr(item.kls)}', '${escapeStr(item.mapel)}', '${item.jam}', 'Hadir', this)">
+                                ✅ Hadir
+                            </button>
+                            <button class="btn btn-warning btn-sm ${saved && saved.status==='Sakit' ? 'active-status' : ''}" ${btnDisabled}
+                                onclick="markAttendance('${scheduleId}', '${escapeStr(item.guru)}', '${escapeStr(item.kls)}', '${escapeStr(item.mapel)}', '${item.jam}', 'Sakit', this)">
+                                🤒 Sakit
+                            </button>
+                            <button class="btn btn-info btn-sm ${saved && saved.status==='Ijin' ? 'active-status' : ''}" ${btnDisabled}
+                                onclick="markAttendance('${scheduleId}', '${escapeStr(item.guru)}', '${escapeStr(item.kls)}', '${escapeStr(item.mapel)}', '${item.jam}', 'Ijin', this)">
+                                📄 Ijin
+                            </button>
+                            <button class="btn btn-danger btn-sm ${saved && saved.status==='Alpha' ? 'active-status' : ''}" ${btnDisabled}
+                                onclick="markAttendance('${scheduleId}', '${escapeStr(item.guru)}', '${escapeStr(item.kls)}', '${escapeStr(item.mapel)}', '${item.jam}', 'Alpha', this)">
+                                ❌ Alpha
+                            </button>
+                        </div>
                     </div>
-                `;
-            }).join('');
+                    <div id="status-${scheduleId}" style="margin-top:12px;">${statusHtml}</div>
+                </div>`;
+        }).join('');
+    }
+
+    // ============================================================
+    // UPDATE SAVED SUMMARY (progress bar)
+    // ============================================================
+    function updateSavedSummary(totalSchedules) {
+        const savedCount = Object.keys(todaySavedAttendance).length;
+        const panel = document.getElementById('saved-summary');
+        document.getElementById('saved-count').textContent = savedCount;
+        document.getElementById('total-schedule-count').textContent = totalSchedules;
+        const pct = totalSchedules > 0 ? Math.round((savedCount / totalSchedules) * 100) : 0;
+        document.getElementById('saved-progress').style.width = pct + '%';
+        
+        if (savedCount > 0 || todayIsHoliday) {
+            panel.classList.remove('hidden');
+        } else {
+            panel.classList.add('hidden');
+        }
+    }
+
+    // ============================================================
+    // MARK ATTENDANCE — Simpan ke server + local + update UI
+    // ============================================================
+    async function markAttendance(scheduleId, guru, kelas, mapel, jam, status, btnElement) {
+        const statusDiv = document.getElementById(`status-${scheduleId}`);
+        statusDiv.innerHTML = `<span class="loading"></span> Menyimpan ke Google Sheets...`;
+
+        // Disable buttons sementara
+        const parentItem = btnElement.closest('.schedule-item');
+        const allBtns = parentItem.querySelectorAll('.status-buttons button');
+        allBtns.forEach(b => b.disabled = true);
+
+        const todayStr = getTodayStr();
+        const dayCode = getDayCode(new Date().getDay());
+
+        const record = {
+            tanggal: todayStr,
+            hari: formatDay(dayCode),
+            jam, kelas, guru, mapel, status,
+            keterangan: '',
+            timestamp: new Date().toISOString()
+        };
+
+        const result = await sendToSheets(record);
+
+        // Update local state
+        const key = makeKey(kelas, jam, guru);
+        todaySavedAttendance[key] = record;
+
+        const sClass = 'status-' + status.toLowerCase();
+        const sIcon = status === 'Hadir' ? '✅' : status === 'Sakit' ? '🤒' : status === 'Ijin' ? '📄' : '❌';
+        const sourceLabel = result.source === 'server' ? '📡 Terkirim ke server' : '💾 Tersimpan lokal';
+        const syncClass = result.source === 'server' ? 'sync-server' : 'sync-local';
+
+        statusDiv.innerHTML = `
+            <div class="status-badge ${sClass}">${sIcon} ${status} — ${new Date().toLocaleTimeString('id-ID')}</div>
+            <span class="sync-indicator ${syncClass}" style="margin-left:8px;">${sourceLabel}</span>`;
+
+        // Re-enable buttons + highlight active
+        allBtns.forEach(b => {
+            b.disabled = false;
+            b.classList.remove('active-status');
+        });
+        btnElement.classList.add('active-status');
+
+        // Mark row as already-marked
+        parentItem.classList.add('already-marked');
+
+        // Update progress
+        const now = new Date();
+        const totalSchedules = database.filter(item => item.hri === getDayCode(now.getDay()) && item.type !== 'break').length;
+        updateSavedSummary(totalSchedules);
+
+        showAlert('monitoring', 'success', `${sIcon} ${guru}: ${status} — ${sourceLabel}`);
+    }
+
+    // ============================================================
+    // HOLIDAY FEATURE
+    // ============================================================
+    function getScheduleForDate(dateStr) {
+        const d = new Date(dateStr + 'T00:00:00');
+        return database.filter(item => item.hri === getDayCode(d.getDay()) && item.type !== 'break');
+    }
+
+    function confirmHoliday() {
+        const dateStr = document.getElementById('holiday-date').value;
+        const reason = document.getElementById('holiday-reason').value.trim();
+
+        if (!dateStr) { showAlert('monitoring', 'error', '❌ Pilih tanggal libur.'); return; }
+        if (!reason) { showAlert('monitoring', 'error', '❌ Isi keterangan libur.'); return; }
+
+        const existing = isDateLocalHoliday(dateStr);
+        if (existing) {
+            showAlert('monitoring', 'error', `⚠️ ${formatDateIndonesia(dateStr)} sudah ditandai libur: "${existing.reason}".`);
+            return;
         }
 
-        // ============================================================
-        // MARK ATTENDANCE (single)
-        // ============================================================
-        async function markAttendance(scheduleId, guru, kelas, mapel, jam, status, btnElement) {
-            const statusDiv = document.getElementById(`status-${scheduleId}`);
-            statusDiv.innerHTML = `<span class="loading"></span> Menyimpan ke Google Sheets...`;
-            
-            // Disable semua tombol di row ini
-            const parentItem = btnElement.closest('.schedule-item');
-            const allBtns = parentItem.querySelectorAll('.status-buttons button');
-            allBtns.forEach(b => b.disabled = true);
+        const schedules = getScheduleForDate(dateStr);
+        if (schedules.length === 0) {
+            showAlert('monitoring', 'error', `❌ Tidak ada jadwal pada ${formatDateIndonesia(dateStr)}.`);
+            return;
+        }
 
+        const uniqueClasses = [...new Set(schedules.map(s => s.kls))];
+        const uniqueTeachers = [...new Set(schedules.map(s => s.guru))];
+        holidayPending = { dateStr, reason, schedules, uniqueClasses, uniqueTeachers };
+
+        document.getElementById('modal-body-text').innerHTML = `
+            <p>Anda akan menandai <strong>${formatDateIndonesia(dateStr)}</strong> sebagai hari libur:</p>
+            <p style="margin:12px 0;padding:12px 16px;background:rgba(255,255,255,0.1);border-radius:10px;font-style:italic;">"${reason}"</p>
+            <p>Akan mengirimkan status <strong style="color:#e879f9;">"Libur"</strong> untuk:</p>
+            <p style="margin-top:8px;">
+                📚 <strong>${schedules.length}</strong> jadwal pelajaran<br>
+                🏫 <strong>${uniqueClasses.length}</strong> kelas<br>
+                👤 <strong>${uniqueTeachers.length}</strong> guru
+            </p>
+            <p style="margin-top:12px;font-size:0.9rem;opacity:0.8;">
+                Data akan disimpan ke sheet <em>"Kehadiran"</em> dan <em>"Hari_Libur"</em>.
+            </p>`;
+
+        document.getElementById('modal-progress').classList.add('hidden');
+        document.getElementById('modal-actions').innerHTML = `
+            <button class="btn btn-ghost" onclick="closeHolidayModal()">Batal</button>
+            <button class="btn btn-holiday" onclick="executeHoliday()">✅ Ya, Tandai Libur</button>`;
+        document.getElementById('modal-actions').classList.remove('hidden');
+        document.getElementById('holiday-modal').classList.remove('hidden');
+    }
+
+    function closeHolidayModal() {
+        document.getElementById('holiday-modal').classList.add('hidden');
+        holidayPending = null;
+    }
+
+    async function executeHoliday() {
+        if (!holidayPending) return;
+        const { dateStr, reason, schedules } = holidayPending;
+        const d = new Date(dateStr + 'T00:00:00');
+        const dayCode = getDayCode(d.getDay());
+
+        document.getElementById('modal-actions').classList.add('hidden');
+        document.getElementById('modal-progress').classList.remove('hidden');
+
+        const total = schedules.length;
+        let completed = 0, failed = 0;
+
+        const updateProg = () => {
+            const pct = Math.round((completed / total) * 100);
+            document.getElementById('progress-bar').style.width = pct + '%';
+            document.getElementById('progress-text').textContent = `Memproses ${completed} dari ${total} jadwal... (${pct}%)`;
+        };
+        updateProg();
+
+        // 1. Simpan ke sheet Hari_Libur
+        await postAction({
+            action: 'save-holiday',
+            tanggal: dateStr,
+            hari: formatDay(dayCode),
+            keterangan: reason,
+            jumlah_jadwal: total
+        });
+
+        // 2. Simpan setiap jadwal sebagai Libur ke sheet Kehadiran
+        for (const item of schedules) {
             const record = {
-                tanggal: currentDate.toISOString().split('T')[0],
-                hari: formatDay(getDayCode(currentDate.getDay())),
-                jam: jam,
-                kelas: kelas,
-                guru: guru,
-                mapel: mapel,
-                status: status,
-                keterangan: '',
+                tanggal: dateStr,
+                hari: formatDay(dayCode),
+                jam: item.jam, kelas: item.kls, guru: item.guru, mapel: item.mapel,
+                status: 'Libur', keterangan: reason,
                 timestamp: new Date().toISOString()
             };
 
-            const success = await sendToSheets(record);
-
-            const statusClass = status === 'Hadir' ? 'status-hadir' : 
-                              status === 'Sakit' ? 'status-sakit' : 
-                              status === 'Ijin' ? 'status-ijin' : 'status-alpha';
-            
-            const statusIcon = status === 'Hadir' ? '✅' : 
-                             status === 'Sakit' ? '🤒' : 
-                             status === 'Ijin' ? '📄' : '❌';
-            
-            const savedText = success ? 'Terkirim ke Sheets' : 'Tersimpan lokal';
-            
-            statusDiv.innerHTML = `
-                <div class="status-badge ${statusClass}">
-                    ${statusIcon} ${status} — ${new Date().toLocaleTimeString('id-ID')} (${savedText})
-                </div>
-            `;
-
-            // Re-enable buttons agar bisa ganti status jika salah
-            allBtns.forEach(b => b.disabled = false);
-            
-            showAlert('monitoring', 'success', `${statusIcon} Kehadiran ${guru}: ${status} — ${savedText}`);
+            const result = await sendToSheets(record);
+            completed++;
+            if (!result.success) failed++;
+            updateProg();
+            await new Promise(r => setTimeout(r, 150));
         }
 
-        // ============================================================
-        // DASHBOARD — ambil dari server, fallback ke local
-        // ============================================================
-        async function updateDashboard() {
-            const period = document.getElementById('filter-period').value;
-            const month = document.getElementById('filter-month').value;
-            
-            document.getElementById('dashboard-loading').classList.remove('hidden');
-            document.getElementById('dashboard-error').classList.add('hidden');
+        document.getElementById('progress-bar').style.width = '100%';
+        document.getElementById('progress-text').innerHTML = failed === 0
+            ? `✅ Selesai! <strong>${total}</strong> jadwal ditandai libur & terkirim ke Google Sheets.`
+            : `⚠️ Selesai! ${total - failed} terkirim, ${failed} gagal (tersimpan lokal).`;
 
-            // Coba ambil dari server
-            const result = await fetchFromSheets({ period: period, month: month });
-            
-            let data;
-            let fromServer = false;
+        addLocalHoliday(dateStr, reason, total);
 
-            if (result.success && Array.isArray(result.data) && result.data.length > 0) {
-                data = result.data;
-                fromServer = true;
-            } else {
-                // Fallback ke local data
-                data = getLocalAttendanceFiltered(period, month);
-                if (data.length === 0 && !result.success) {
-                    document.getElementById('dashboard-error').classList.remove('hidden');
-                }
-            }
+        document.getElementById('modal-actions').innerHTML =
+            `<button class="btn btn-holiday" onclick="closeHolidayModal()" style="width:100%;">✅ Selesai</button>`;
+        document.getElementById('modal-actions').classList.remove('hidden');
 
-            const stats = calculateStats(data);
-            
-            document.getElementById('stat-hadir').textContent = stats.hadir;
-            document.getElementById('stat-sakit').textContent = stats.sakit;
-            document.getElementById('stat-ijin').textContent = stats.ijin;
-            document.getElementById('stat-alpha').textContent = stats.alpha;
-            document.getElementById('stat-libur').textContent = stats.libur;
-            
-            const total = stats.hadir + stats.sakit + stats.ijin + stats.alpha + stats.libur;
-            const pct = (v) => total > 0 ? `${((v / total) * 100).toFixed(1)}%` : '0%';
-            
-            document.getElementById('stat-hadir-pct').textContent = pct(stats.hadir);
-            document.getElementById('stat-sakit-pct').textContent = pct(stats.sakit);
-            document.getElementById('stat-ijin-pct').textContent = pct(stats.ijin);
-            document.getElementById('stat-alpha-pct').textContent = pct(stats.alpha);
-            document.getElementById('stat-libur-pct').textContent = pct(stats.libur);
+        addHolidayLogEntry(dateStr, reason, total, failed);
 
-            document.getElementById('dashboard-loading').classList.add('hidden');
+        if (dateStr === getTodayStr()) {
+            todayIsHoliday = { keterangan: reason };
+            showHolidayBanner(reason);
+            loadTodayScheduleWithSync();
         }
 
-        function calculateStats(data) {
-            const stats = { hadir: 0, sakit: 0, ijin: 0, alpha: 0, libur: 0 };
-            data.forEach(record => {
-                const s = record.status || record.Status || '';
-                if (s === 'Hadir') stats.hadir++;
-                else if (s === 'Sakit') stats.sakit++;
-                else if (s === 'Ijin') stats.ijin++;
-                else if (s === 'Alpha') stats.alpha++;
-                else if (s === 'Libur') stats.libur++;
-            });
-            return stats;
+        showAlert('monitoring', 'success', `🏖️ ${total} jadwal pada ${formatDateIndonesia(dateStr)} ditandai LIBUR (${reason}).`);
+        holidayPending = null;
+    }
+
+    function showHolidayBanner(reason) {
+        document.getElementById('holiday-banner-reason').textContent = `— ${reason}`;
+        document.getElementById('holiday-banner').classList.remove('hidden');
+    }
+
+    function addHolidayLogEntry(dateStr, reason, total, failed) {
+        const logContainer = document.getElementById('holiday-log');
+        const timeStr = new Date().toLocaleTimeString('id-ID');
+        logContainer.insertAdjacentHTML('afterbegin', `
+            <div class="holiday-log-item">
+                <span style="font-size:1.3rem;">🏖️</span>
+                <span><strong>${formatDateIndonesia(dateStr)}</strong> — ${reason} (${total} jadwal${failed > 0 ? `, ${failed} gagal` : ' terkirim'})</span>
+                <span class="log-time">${timeStr}</span>
+            </div>`);
+    }
+
+    async function loadHolidayLog() {
+        const logContainer = document.getElementById('holiday-log');
+        logContainer.innerHTML = '';
+
+        // Coba dari server
+        const result = await fetchFromSheets({ action: 'get-holidays' });
+        let holidays = [];
+
+        if (result.success && result.data && result.data.data) {
+            holidays = result.data.data;
+        } else {
+            // Fallback local
+            holidays = getLocalHolidays().map(h => ({
+                tanggal: h.date, keterangan: h.reason, jumlah_jadwal: h.count, created_at: h.timestamp
+            }));
         }
 
-        /**
-         * Filter data lokal berdasarkan periode
-         */
-        function getLocalAttendanceFiltered(period, month) {
-            const allData = getLocalData(STORAGE_KEYS.ATTENDANCE);
-            const now = new Date();
-            const currentYear = now.getFullYear();
-            
-            return allData.filter(record => {
-                const tanggal = new Date(record.tanggal);
-                if (isNaN(tanggal.getTime())) return false;
-
-                switch(period) {
-                    case 'today':
-                        return record.tanggal === getTodayStr();
-                    case 'week':
-                        const weekAgo = new Date(now.getTime() - 7*24*60*60*1000);
-                        return tanggal >= weekAgo && tanggal <= now;
-                    case 'month':
-                        return tanggal.getMonth() + 1 === parseInt(month) && tanggal.getFullYear() === currentYear;
-                    default:
-                        return true;
-                }
-            });
-        }
-
-        // ============================================================
-        // REKAPITULASI — ambil dari server, fallback ke local
-        // ============================================================
-        function loadTeacherList() {
-            const select = document.getElementById('rekap-guru');
-            select.innerHTML = '<option value="all">Semua Guru</option>' +
-                teachersList.map(t => `<option value="${t}">${t}</option>`).join('');
-        }
-
-        async function updateRekap() {
-            const period = document.getElementById('rekap-period').value;
-            const guru = document.getElementById('rekap-guru').value;
-            
-            document.getElementById('rekap-loading').classList.remove('hidden');
-
-            const result = await fetchFromSheets({ action: 'rekap', period: period, guru: guru });
-            
-            const tbody = document.getElementById('rekap-tbody');
-            
-            if (result.success && Array.isArray(result.data) && result.data.length > 0) {
-                tbody.innerHTML = result.data.map((row, index) => `
-                    <tr>
-                        <td>${index + 1}</td>
-                        <td>${row.guru}</td>
-                        <td>${row.hadir}</td>
-                        <td>${row.sakit}</td>
-                        <td>${row.ijin}</td>
-                        <td>${row.alpha}</td>
-                        <td>${row.libur || 0}</td>
-                        <td>${row.total}</td>
-                        <td><div class="status-badge status-hadir">${row.percentage}%</div></td>
-                    </tr>
-                `).join('');
-            } else {
-                // Fallback: hitung dari data lokal
-                const localData = getLocalData(STORAGE_KEYS.ATTENDANCE);
-                const rekapLocal = calculateLocalRekap(localData, guru);
-                
-                if (rekapLocal.length > 0) {
-                    tbody.innerHTML = rekapLocal.map((row, index) => `
-                        <tr>
-                            <td>${index + 1}</td>
-                            <td>${row.guru}</td>
-                            <td>${row.hadir}</td>
-                            <td>${row.sakit}</td>
-                            <td>${row.ijin}</td>
-                            <td>${row.alpha}</td>
-                            <td>${row.libur}</td>
-                            <td>${row.total}</td>
-                            <td><div class="status-badge status-hadir">${row.percentage}%</div></td>
-                        </tr>
-                    `).join('');
-                } else {
-                    tbody.innerHTML = `
-                        <tr><td colspan="9" style="text-align:center;padding:40px;">
-                            <div style="opacity:0.7;">📭 Data belum tersedia. Mulai input kehadiran untuk melihat rekapitulasi.</div>
-                        </td></tr>
-                    `;
-                }
-            }
-            
-            document.getElementById('rekap-loading').classList.add('hidden');
-        }
-
-        function calculateLocalRekap(data, guruFilter) {
-            const guruStats = {};
-            
-            data.forEach(record => {
-                const guru = record.guru;
-                const status = record.status;
-                
-                if (guruFilter !== 'all' && guru !== guruFilter) return;
-                
-                if (!guruStats[guru]) {
-                    guruStats[guru] = { guru, hadir:0, sakit:0, ijin:0, alpha:0, libur:0, total:0 };
-                }
-                
-                guruStats[guru].total++;
-                if (status === 'Hadir') guruStats[guru].hadir++;
-                else if (status === 'Sakit') guruStats[guru].sakit++;
-                else if (status === 'Ijin') guruStats[guru].ijin++;
-                else if (status === 'Alpha') guruStats[guru].alpha++;
-                else if (status === 'Libur') guruStats[guru].libur++;
-            });
-
-            return Object.values(guruStats).map(stat => {
-                const nonLibur = stat.total - stat.libur;
-                stat.percentage = nonLibur > 0 ? ((stat.hadir / nonLibur) * 100).toFixed(1) : '0.0';
-                return stat;
-            }).sort((a, b) => parseFloat(b.percentage) - parseFloat(a.percentage));
-        }
-
-        // ============================================================
-        // INIT — Load holiday log from local storage on startup
-        // ============================================================
-        function loadHolidayLogFromLocal() {
-            const holidays = getLocalHolidays();
-            const logContainer = document.getElementById('holiday-log');
-            if (!logContainer) return;
-            
-            holidays.slice().reverse().forEach(h => {
-                const d = new Date(h.timestamp);
-                const timeStr = d.toLocaleTimeString('id-ID');
-                logContainer.insertAdjacentHTML('beforeend', `
-                    <div class="holiday-log-item">
-                        <span style="font-size:1.3rem;">🏖️</span>
-                        <span>
-                            <strong>${formatDateIndonesia(h.date)}</strong> — ${h.reason} 
-                            (${h.count} jadwal terkirim)
-                        </span>
-                        <span class="log-time">${timeStr}</span>
-                    </div>
-                `);
-            });
-        }
-
-        // ============================================================
-        // INITIALIZE
-        // ============================================================
-        document.addEventListener('DOMContentLoaded', function() {
-            updateClock();
-            setInterval(updateClock, 1000);
-            
-            const now = new Date();
-            document.getElementById('filter-month').value = now.getMonth() + 1;
-            
-            updateDashboard();
-            loadTeacherList();
+        holidays.slice().reverse().forEach(h => {
+            const timeStr = h.created_at ? new Date(h.created_at).toLocaleTimeString('id-ID') : '';
+            logContainer.insertAdjacentHTML('beforeend', `
+                <div class="holiday-log-item">
+                    <span style="font-size:1.3rem;">🏖️</span>
+                    <span><strong>${formatDateIndonesia(h.tanggal)}</strong> — ${h.keterangan} (${h.jumlah_jadwal} jadwal)</span>
+                    <span class="log-time">${timeStr}</span>
+                </div>`);
         });
+    }
+
+    // ============================================================
+    // DASHBOARD
+    // ============================================================
+    async function updateDashboard() {
+        const period = document.getElementById('filter-period').value;
+        const month = document.getElementById('filter-month').value;
+
+        document.getElementById('dashboard-loading').classList.remove('hidden');
+        document.getElementById('dashboard-error').classList.add('hidden');
+        document.getElementById('dashboard-source').innerHTML = '';
+
+        const result = await fetchFromSheets({ period, month });
+
+        let data = [];
+        let fromServer = false;
+
+        if (result.success && Array.isArray(result.data) && result.data.length > 0) {
+            data = result.data;
+            fromServer = true;
+        } else if (result.success && result.data && Array.isArray(result.data.data)) {
+            data = result.data.data;
+            fromServer = true;
+        } else {
+            data = getLocalAttendanceFiltered(period, month);
+            if (data.length === 0 && !result.success) {
+                document.getElementById('dashboard-error').classList.remove('hidden');
+            }
+        }
+
+        const stats = { hadir:0, sakit:0, ijin:0, alpha:0, libur:0 };
+        data.forEach(r => {
+            const s = r.status || r.Status || '';
+            if (s === 'Hadir') stats.hadir++;
+            else if (s === 'Sakit') stats.sakit++;
+            else if (s === 'Ijin') stats.ijin++;
+            else if (s === 'Alpha') stats.alpha++;
+            else if (s === 'Libur') stats.libur++;
+        });
+
+        ['hadir','sakit','ijin','alpha','libur'].forEach(k => {
+            document.getElementById(`stat-${k}`).textContent = stats[k];
+        });
+
+        const total = stats.hadir + stats.sakit + stats.ijin + stats.alpha + stats.libur;
+        const pct = v => total > 0 ? ((v/total)*100).toFixed(1) + '%' : '0%';
+        ['hadir','sakit','ijin','alpha','libur'].forEach(k => {
+            document.getElementById(`stat-${k}-pct`).textContent = pct(stats[k]);
+        });
+
+        const srcLabel = fromServer ? '📡 Data dari Google Sheets' : '💾 Data dari cache lokal';
+        const srcClass = fromServer ? 'sync-server' : 'sync-local';
+        document.getElementById('dashboard-source').innerHTML = `<span class="sync-indicator ${srcClass}">${srcLabel}</span>`;
+
+        document.getElementById('dashboard-loading').classList.add('hidden');
+    }
+
+    function getLocalAttendanceFiltered(period, month) {
+        const allData = getLocalData(STORAGE_KEYS.ATTENDANCE);
+        const now = new Date();
+        const yr = now.getFullYear();
+        const todayStr = getTodayStr();
+
+        return allData.filter(r => {
+            const t = new Date(r.tanggal);
+            if (isNaN(t.getTime())) return false;
+            switch (period) {
+                case 'today': return r.tanggal === todayStr;
+                case 'week': return t >= new Date(now.getTime() - 7*86400000) && t <= now;
+                case 'month': return t.getMonth()+1 === parseInt(month) && t.getFullYear() === yr;
+                default: return true;
+            }
+        });
+    }
+
+    // ============================================================
+    // REKAPITULASI
+    // ============================================================
+    function loadTeacherList() {
+        const sel = document.getElementById('rekap-guru');
+        sel.innerHTML = '<option value="all">Semua Guru</option>' +
+            teachersList.map(t => `<option value="${t}">${t}</option>`).join('');
+    }
+
+    async function updateRekap() {
+        const period = document.getElementById('rekap-period').value;
+        const guru = document.getElementById('rekap-guru').value;
+
+        document.getElementById('rekap-loading').classList.remove('hidden');
+        document.getElementById('rekap-source').innerHTML = '';
+
+        const result = await fetchFromSheets({ action: 'rekap', period, guru });
+        const tbody = document.getElementById('rekap-tbody');
+
+        let rekapData = [];
+        let fromServer = false;
+
+        if (result.success && Array.isArray(result.data) && result.data.length > 0) {
+            rekapData = result.data;
+            fromServer = true;
+        } else {
+            const localData = getLocalData(STORAGE_KEYS.ATTENDANCE);
+            rekapData = calculateLocalRekap(localData, guru);
+        }
+
+        if (rekapData.length > 0) {
+            tbody.innerHTML = rekapData.map((row, i) => `
+                <tr>
+                    <td>${i+1}</td><td>${row.guru}</td>
+                    <td>${row.hadir}</td><td>${row.sakit}</td><td>${row.ijin}</td><td>${row.alpha}</td>
+                    <td>${row.libur || 0}</td><td>${row.total}</td>
+                    <td><div class="status-badge status-hadir">${row.percentage}%</div></td>
+                </tr>`).join('');
+        } else {
+            tbody.innerHTML = `<tr><td colspan="9" style="text-align:center;padding:40px;opacity:0.7;">📭 Data belum tersedia.</td></tr>`;
+        }
+
+        const srcLabel = fromServer ? '📡 Data dari Google Sheets' : '💾 Data dari cache lokal';
+        const srcClass = fromServer ? 'sync-server' : 'sync-local';
+        document.getElementById('rekap-source').innerHTML = `<span class="sync-indicator ${srcClass}">${srcLabel}</span>`;
+
+        document.getElementById('rekap-loading').classList.add('hidden');
+    }
+
+    function calculateLocalRekap(data, guruFilter) {
+        const gs = {};
+        data.forEach(r => {
+            const g = r.guru, s = r.status;
+            if (guruFilter !== 'all' && g !== guruFilter) return;
+            if (!gs[g]) gs[g] = { guru:g, hadir:0, sakit:0, ijin:0, alpha:0, libur:0, total:0 };
+            gs[g].total++;
+            if (s === 'Hadir') gs[g].hadir++;
+            else if (s === 'Sakit') gs[g].sakit++;
+            else if (s === 'Ijin') gs[g].ijin++;
+            else if (s === 'Alpha') gs[g].alpha++;
+            else if (s === 'Libur') gs[g].libur++;
+        });
+        return Object.values(gs).map(s => {
+            const nl = s.total - s.libur;
+            s.percentage = nl > 0 ? ((s.hadir/nl)*100).toFixed(1) : '0.0';
+            return s;
+        }).sort((a,b) => parseFloat(b.percentage) - parseFloat(a.percentage));
+    }
+
+    // ============================================================
+    // INIT
+    // ============================================================
+    document.addEventListener('DOMContentLoaded', async function() {
+        updateClock();
+        setInterval(updateClock, 1000);
+
+        document.getElementById('filter-month').value = new Date().getMonth() + 1;
+
+        // Check server connection
+        await checkServerConnection();
+
+        updateDashboard();
+        loadTeacherList();
+    });
     </script>
 </body>
 </html>
